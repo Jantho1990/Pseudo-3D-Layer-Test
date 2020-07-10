@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://tilesets/office/office-elements.png" type="Texture" id=1]
+
+[node name="Desk" type="Sprite3D"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 33, 128, 95 )
