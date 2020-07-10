@@ -1,0 +1,264 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "BudgetSystem",
+"language": "GDScript",
+"path": "res://scripts/Budget.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Construct",
+"language": "GDScript",
+"path": "res://entities/constructs/Construct.gd"
+}, {
+"base": "Node",
+"class": "Controller",
+"language": "GDScript",
+"path": "res://entities/controllers/Controller.gd"
+}, {
+"base": "Spell",
+"class": "CreateConstruct",
+"language": "GDScript",
+"path": "res://spells/CreateConstruct.gd"
+}, {
+"base": "Node",
+"class": "DataStore",
+"language": "GDScript",
+"path": "res://scripts/DataStore.gd"
+}, {
+"base": "Construct",
+"class": "DecoyConstruct",
+"language": "GDScript",
+"path": "res://entities/constructs/DecoyConstruct/DecoyConstruct.gd"
+}, {
+"base": "Node",
+"class": "DecoyConstructContainer",
+"language": "GDScript",
+"path": "res://containers/DecoyConstructContainer/DecoyConstructContainer.gd"
+}, {
+"base": "Node",
+"class": "DoorContainer",
+"language": "GDScript",
+"path": "res://containers/DoorContainer/DoorContainer.gd"
+}, {
+"base": "Node",
+"class": "EnemyContainer",
+"language": "GDScript",
+"path": "res://containers/EnemyContainer/EnemyContainer.gd"
+}, {
+"base": "Locomotor",
+"class": "GroundLocomotor",
+"language": "GDScript",
+"path": "res://entities/locomotors/GroundLocomotor/GroundLocomotor.gd"
+}, {
+"base": "Node",
+"class": "Locomotor",
+"language": "GDScript",
+"path": "res://entities/locomotors/Locomotor.gd"
+}, {
+"base": "Navigation2D",
+"class": "NavigationNode",
+"language": "GDScript",
+"path": "res://map/NavigationNode.gd"
+}, {
+"base": "Node",
+"class": "Navigator",
+"language": "GDScript",
+"path": "res://entities/modules/Navigator/Navigator.gd"
+}, {
+"base": "Construct",
+"class": "PlatformConstruct",
+"language": "GDScript",
+"path": "res://entities/constructs/PlatformConstruct/PlatformConstruct.gd"
+}, {
+"base": "Node",
+"class": "PlatformConstructContainer",
+"language": "GDScript",
+"path": "res://containers/PlatformConstructContainer/PlatformConstructContainer.gd"
+}, {
+"base": "Node",
+"class": "PlayerController",
+"language": "GDScript",
+"path": "res://entities/controllers/PlayerController/PlayerController.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": "SoundPool",
+"language": "GDScript",
+"path": "res://systems/sound/SoundPool.gd"
+}, {
+"base": "AudioStreamPlayer2D",
+"class": "SoundPool2D",
+"language": "GDScript",
+"path": "res://systems/sound/SoundPool2D.gd"
+}, {
+"base": "Position2D",
+"class": "SpawnPoint",
+"language": "GDScript",
+"path": "res://entities/spawn_points/SpawnPoint.gd"
+}, {
+"base": "Node2D",
+"class": "Spell",
+"language": "GDScript",
+"path": "res://systems/spellcaster/Spell.gd"
+}, {
+"base": "Node",
+"class": "Spellcaster",
+"language": "GDScript",
+"path": "res://systems/spellcaster/Spellcaster.gd"
+}, {
+"base": "Construct",
+"class": "StoneblockConstruct",
+"language": "GDScript",
+"path": "res://entities/constructs/StoneblockConstruct/StoneblockConstruct.gd"
+}, {
+"base": "Node",
+"class": "StoneblockConstructContainer",
+"language": "GDScript",
+"path": "res://containers/StoneblockConstructContainer/StoneblockConstructContainer.gd"
+}, {
+"base": "Controller",
+"class": "TestEnemyController",
+"language": "GDScript",
+"path": "res://entities/controllers/TestEnemyController/TestEnemyController.gd"
+}, {
+"base": "Locomotor",
+"class": "TestGroundLocomotor",
+"language": "GDScript",
+"path": "res://entities/locomotors/TestGroundLocomotor/TestGroundLocomotor.gd"
+}, {
+"base": "Area2D",
+"class": "TilemapCollisionArea",
+"language": "GDScript",
+"path": "res://map/TilemapCollisionArea.gd"
+}, {
+"base": "DataStore",
+"class": "UserStore",
+"language": "GDScript",
+"path": "res://scripts/UserStore.gd"
+}, {
+"base": "Position2D",
+"class": "Waypoint",
+"language": "GDScript",
+"path": "res://entities/waypoints/Waypoint.gd"
+} ]
+_global_script_class_icons={
+"BudgetSystem": "",
+"Construct": "",
+"Controller": "",
+"CreateConstruct": "",
+"DataStore": "",
+"DecoyConstruct": "",
+"DecoyConstructContainer": "",
+"DoorContainer": "",
+"EnemyContainer": "",
+"GroundLocomotor": "",
+"Locomotor": "",
+"NavigationNode": "",
+"Navigator": "",
+"PlatformConstruct": "",
+"PlatformConstructContainer": "",
+"PlayerController": "",
+"SoundPool": "",
+"SoundPool2D": "",
+"SpawnPoint": "",
+"Spell": "",
+"Spellcaster": "",
+"StoneblockConstruct": "",
+"StoneblockConstructContainer": "",
+"TestEnemyController": "",
+"TestGroundLocomotor": "",
+"TilemapCollisionArea": "",
+"UserStore": "",
+"Waypoint": ""
+}
+
+[application]
+
+config/name="Psuedo3D Layer Test"
+run/main_scene="res://maps/TestPseudo3D/TestPseudo3DMap.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://scripts/global.gd"
+helpers="*res://scripts/helpers.gd"
+math="*res://scripts/math.gd"
+GlobalStore="*res://scripts/DataStore.gd"
+GlobalSignal="*res://scripts/GlobalSignal.gd"
+
+[display]
+
+window/size/width=600
+window/size/height=480
+window/size/test_width=1024
+window/size/test_height=600
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[rendering]
+
+quality/2d/use_nvidia_rect_flicker_workaround=true
+quality/2d/use_pixel_snap=true
+environment/default_environment="res://default_env.tres"

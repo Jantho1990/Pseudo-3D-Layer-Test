@@ -1,0 +1,197 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://entities/enemies/Darkbeast/MeleeSensor.gd" type="Script" id=1]
+[ext_resource path="res://systems/state/StackStateMachine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/locomotors/GroundLocomotor/GroundLocomotor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/Goblin/goblinsword_0.png" type="Texture" id=4]
+[ext_resource path="res://systems/health/Health.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/enemies/Goblin/DaggerAttack.gd" type="Script" id=6]
+[ext_resource path="res://entities/modules/Patrol/Patrol.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/enemies/Goblin/Goblin.gd" type="Script" id=8]
+[ext_resource path="res://entities/enemies/Darkbeast/TargetSensor.gd" type="Script" id=9]
+[ext_resource path="res://entities/enemies/Goblin/Sprite.gd" type="Script" id=10]
+[ext_resource path="res://entities/enemies/Goblin/Sprites.gd" type="Script" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "attack"
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19, 20, 21 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../DaggerAttack:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.7 ),
+"transitions": PoolRealArray( 7.64795e-13, 9.23415e-14, 2.04425e-06, 1.94127e-14, 2.41624e-17, 4.46804e-05 ),
+"update": 0,
+"values": [ Vector2( 26, 11 ), Vector2( 20, 11 ), Vector2( 64, -10 ), Vector2( 54, -4 ), Vector2( 38, 10 ), Vector2( 38, 10 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "run"
+length = 0.3
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14, 15, 16 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14, 15, 16 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 15.0
+height = 64.0
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 10, 5 )
+
+[sub_resource type="Animation" id=6]
+length = 0.555556
+loop = true
+step = 0.0138889
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 40, 20 )
+
+[sub_resource type="RayShape2D" id=8]
+length = 400.0
+
+[node name="Goblin" type="KinematicBody2D"]
+collision_layer = 32
+collision_mask = 3
+script = ExtResource( 8 )
+
+[node name="State" parent="." instance=ExtResource( 2 )]
+states = [ "idle", "patrol", "pursue", "attack" ]
+default = "patrol"
+
+[node name="Sprites" type="Node2D" parent="."]
+position = Vector2( 16, 0 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 11 )
+
+[node name="Sprite" type="Sprite" parent="Sprites"]
+texture = ExtResource( 4 )
+vframes = 5
+hframes = 11
+frame = 17
+region_enabled = true
+region_rect = Rect2( 0, 0, 715, 320 )
+script = ExtResource( 10 )
+
+[node name="Walk" type="Sprite" parent="Sprites"]
+visible = false
+texture = ExtResource( 4 )
+vframes = 4
+hframes = 6
+region_enabled = true
+region_rect = Rect2( 0, 0, 390, 260 )
+
+[node name="Attack" type="Sprite" parent="Sprites"]
+visible = false
+texture = ExtResource( 4 )
+vframes = 4
+hframes = 5
+region_enabled = true
+region_rect = Rect2( 390, 0, 325, 260 )
+
+[node name="Animator" type="AnimationPlayer" parent="Sprites"]
+anims/attack = SubResource( 1 )
+anims/idle = SubResource( 2 )
+anims/run = SubResource( 3 )
+anims/walk = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+
+[node name="GroundLocomotor" parent="." instance=ExtResource( 3 )]
+
+[node name="Patrol" parent="." instance=ExtResource( 7 )]
+
+[node name="Health" parent="." instance=ExtResource( 5 )]
+current = 1
+maximum = 1
+
+[node name="DaggerAttack" type="Area2D" parent="."]
+position = Vector2( 26, 11 )
+collision_layer = 64
+collision_mask = 2
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DaggerAttack"]
+shape = SubResource( 9 )
+
+[node name="AttackAnimation" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+anims/attack_start = SubResource( 6 )
+
+[node name="MeleeSensor" type="Area2D" parent="."]
+position = Vector2( 20, 0 )
+priority = 1.0
+collision_layer = 32
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeSensor"]
+shape = SubResource( 7 )
+
+[node name="TargetSensor" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetSensor"]
+rotation = 4.71239
+shape = SubResource( 8 )

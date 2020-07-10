@@ -1,0 +1,114 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://entities/enemies/DeathBat/bat.32x32.png" type="Texture" id=1]
+[ext_resource path="res://entities/modules/Patrol/Patrol.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/modules/Navigator/Navigator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemies/DeathBat/DeathBat.gd" type="Script" id=4]
+[ext_resource path="res://systems/state/StackStateMachine.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/enemies/DeathBat/Sprites.gd" type="Script" id=6]
+[ext_resource path="res://entities/locomotors/AirLocomotor/AirLocomotor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/enemies/DeathBat/Sprite.gd" type="Script" id=8]
+[ext_resource path="res://entities/sensors/MeleeSensor/MeleeSensor.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/sensors/TargetSensor/TargetSensor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://systems/health/Health.tscn" type="PackedScene" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fly"
+length = 0.25
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.0
+height = 3.25
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 300.0
+
+[node name="DeathBat" type="KinematicBody2D"]
+position = Vector2( 10, -2.26488 )
+collision_layer = 32
+collision_mask = 3
+script = ExtResource( 4 )
+
+[node name="State" parent="." instance=ExtResource( 5 )]
+states = [ "patrol", "pursue" ]
+default = "patrol"
+
+[node name="Health" parent="." instance=ExtResource( 11 )]
+current = 1
+maximum = 1
+
+[node name="Sprites" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Sprites"]
+texture = ExtResource( 1 )
+vframes = 2
+hframes = 6
+script = ExtResource( 8 )
+
+[node name="Animator" type="AnimationPlayer" parent="Sprites"]
+anims/fly = SubResource( 1 )
+anims/idle = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -10, 0 )
+rotation = 1.5708
+shape = SubResource( 3 )
+
+[node name="AirLocomotor" parent="." instance=ExtResource( 7 )]
+MAX_FLY_SPEED = 300.0
+
+[node name="Patrol" parent="." instance=ExtResource( 2 )]
+
+[node name="Navigator" parent="." instance=ExtResource( 3 )]
+
+[node name="MeleeSensor" parent="." instance=ExtResource( 9 )]
+position = Vector2( -16, 0 )
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeSensor"]
+shape = SubResource( 4 )
+
+[node name="TargetSensor" parent="." instance=ExtResource( 10 )]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetSensor"]
+position = Vector2( -10, 0 )
+shape = SubResource( 5 )
+
+[node name="PursuePathTimer" type="Timer" parent="."]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://systems/health/Health.tscn" type="PackedScene" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 48 )
+
+[node name="Gaylen" type="KinematicBody2D"]
+
+[node name="TempArt" type="ColorRect" parent="."]
+margin_left = -32.0
+margin_top = -48.0
+margin_right = 32.0
+margin_bottom = 48.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TempCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Health" parent="." instance=ExtResource( 1 )]

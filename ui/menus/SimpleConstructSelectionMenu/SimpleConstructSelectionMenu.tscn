@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/menus/SimpleConstructSelectionMenu/SelectionButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/icons/jump pad icon.png" type="Texture" id=2]
+[ext_resource path="res://ui/icons/platform icon.png" type="Texture" id=3]
+[ext_resource path="res://ui/icons/scarecrow icon.png" type="Texture" id=4]
+[ext_resource path="res://ui/menus/SimpleConstructSelectionMenu/SimpleConstructSelectionMenu.gd" type="Script" id=5]
+
+[node name="SimpleConstructSelectionMenu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -375.0
+margin_top = -125.0
+margin_right = 375.0
+margin_bottom = 125.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.266667, 0.266667, 0.266667, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 725.0
+margin_bottom = 225.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectionButton1" parent="MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+texture_normal = ExtResource( 3 )
+construct_name = "PlatformConstruct"
+
+[node name="SelectionButton2" parent="MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 250.0
+margin_right = 450.0
+texture_normal = ExtResource( 2 )
+construct_name = "StoneblockConstruct"
+
+[node name="SelectionButton3" parent="MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 500.0
+margin_right = 700.0
+texture_normal = ExtResource( 4 )
+construct_name = "DecoyConstruct"
