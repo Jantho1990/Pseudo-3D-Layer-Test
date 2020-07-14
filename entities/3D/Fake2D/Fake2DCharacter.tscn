@@ -95,8 +95,9 @@ anims/walk_s = SubResource( 4 )
 anims/walk_w = SubResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 2.5 )
 current = true
+fov = 37.2
 
 [node name="LayerShiftDelay" type="Timer" parent="."]
 
