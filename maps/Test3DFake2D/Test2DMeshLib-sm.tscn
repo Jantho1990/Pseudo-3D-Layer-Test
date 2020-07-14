@@ -4,15 +4,15 @@
 [ext_resource path="res://tilesets/office/office-tile-wall.png" type="Texture" id=2]
 [ext_resource path="res://tilesets/office/office-tile-ceiling.png" type="Texture" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 1 )
 
 [sub_resource type="QuadMesh" id=2]
-material = SubResource( 3 )
+material = SubResource( 1 )
 
-[sub_resource type="BoxShape" id=11]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.5, 0.5, 0.001 )
 
 [sub_resource type="SpatialMaterial" id=4]
@@ -23,18 +23,18 @@ albedo_texture = ExtResource( 2 )
 [sub_resource type="QuadMesh" id=5]
 material = SubResource( 4 )
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.5, 0.5, 0.001 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 flags_unshaded = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="QuadMesh" id=8]
+material = SubResource( 7 )
 
-[sub_resource type="BoxShape" id=13]
+[sub_resource type="BoxShape" id=9]
 extents = Vector3( 0.5, 0.5, 0.001 )
 
 [node name="Test2DMeshLib" type="Spatial"]
@@ -47,7 +47,7 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Floor"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
-shape = SubResource( 11 )
+shape = SubResource( 3 )
 
 [node name="Wall" type="MeshInstance" parent="."]
 mesh = SubResource( 5 )
@@ -56,13 +56,13 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Wall"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
-shape = SubResource( 12 )
+shape = SubResource( 6 )
 
 [node name="Ceiling" type="MeshInstance" parent="."]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Ceiling/StaticBody"]
-shape = SubResource( 13 )
+shape = SubResource( 9 )

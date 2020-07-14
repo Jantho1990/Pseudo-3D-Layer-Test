@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "walk_n"
 length = 0.3
 loop = true
@@ -40,7 +40,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "walk_s"
 length = 0.3
 loop = true
@@ -57,8 +57,7 @@ tracks/0/keys = {
 "values": [ 34, 35, 36 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "walk_w"
+[sub_resource type="Animation" id=5]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -91,12 +90,12 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/walk_e = SubResource( 2 )
-anims/walk_n = SubResource( 4 )
-anims/walk_s = SubResource( 5 )
-anims/walk_w = SubResource( 3 )
+anims/walk_n = SubResource( 3 )
+anims/walk_s = SubResource( 4 )
+anims/walk_w = SubResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.3 )
 current = true
 
 [node name="LayerShiftDelay" type="Timer" parent="."]
