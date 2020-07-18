@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/platformPack_tile034.png-f80f3fdbf6b9ebcf2b03eab52d8d0149.stex"
+path="res://.import/platformPack_tile051.png-09d6bb33827842cc5ff4f4627534574f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://meshes/Kenney1/platformPack_tile034.png"
-dest_files=[ "res://.import/platformPack_tile034.png-f80f3fdbf6b9ebcf2b03eab52d8d0149.stex" ]
+source_file="res://meshes/Kenney1/platformPack_tile051.png"
+dest_files=[ "res://.import/platformPack_tile051.png-09d6bb33827842cc5ff4f4627534574f.stex" ]
 
 [params]
 
@@ -23,7 +23,7 @@ flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

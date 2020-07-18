@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://meshes/Kenney1/platformPack_tile016.png" type="Texture" id=1]
 [ext_resource path="res://meshes/Kenney1/platformPack_tile018.png" type="Texture" id=2]
+[ext_resource path="res://meshes/Kenney1/platformPack_tile034.png" type="Texture" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -19,6 +20,15 @@ albedo_texture = ExtResource( 2 )
 [sub_resource type="QuadMesh" id=4]
 material = SubResource( 3 )
 
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=6]
+material = SubResource( 5 )
+
 [node name="Kenney1" type="Spatial"]
 
 [node name="StoneWall" type="MeshInstance" parent="."]
@@ -27,4 +37,8 @@ material/0 = null
 
 [node name="Sand" type="MeshInstance" parent="."]
 mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Brown Bricks" type="MeshInstance" parent="."]
+mesh = SubResource( 6 )
 material/0 = null

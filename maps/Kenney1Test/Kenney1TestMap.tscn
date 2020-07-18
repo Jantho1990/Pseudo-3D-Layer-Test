@@ -10,7 +10,7 @@ cell_size = Vector3( 1, 1, 1 )
 cell_octant_size = 1
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 786433, 3, 0, 1074659329, 65535, 0, 1074528257, 0, 65535, 786433, 65535, 65535, 1074528257 )
+"cells": PoolIntArray( 0, 0, 537657345, 3, 0, 1074659329, 65535, 0, 786433, 0, 65535, 1074528257, 65535, 65535, 786433 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -21,7 +21,7 @@ mesh_library = ExtResource( 1 )
 cell_size = Vector3( 0.5, 1, 1 )
 cell_center_x = false
 data = {
-"cells": PoolIntArray( 0, 0, 1441792, 6, 0, 1074593792, 65534, 0, 1075183616, 65535, 0, 1075183616, 0, 65535, 1075183616, 65534, 65535, 1075183616 )
+"cells": PoolIntArray( 0, 0, 1075183616, 6, 0, 851968, 65534, 0, 1441792, 65535, 0, 1441792, 0, 65535, 1075183616, 65534, 65535, 1075183616 )
 }
 __meta__ = {
 "_editor_clip_": 0,
@@ -33,9 +33,21 @@ mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 0.5 )
 cell_center_z = false
 data = {
-"cells": PoolIntArray( 0, 0, 655360, -65536, 0, 1074397184, 0, 1, 1074397184, 0, 2, 655360, 3, 2, 589824, 65534, 2, 655360, 65535, 2, 655360, -65536, 2, 655360 )
+"cells": PoolIntArray( 0, 0, 655360, -65536, 0, 1074397184, 0, 1, 1074397184, 0, 2, 1074397184, 3, 2, 589824, 65534, 2, 655360, 65535, 2, 655360, -65536, 2, 537526272 )
 }
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 2 )
+}
+
+[node name="Ceiling" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 65539, 0, 1245186 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 1, 0 )
 }
