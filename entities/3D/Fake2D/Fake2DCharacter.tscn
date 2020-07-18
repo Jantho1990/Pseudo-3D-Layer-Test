@@ -95,7 +95,7 @@ anims/walk_s = SubResource( 4 )
 anims/walk_w = SubResource( 5 )
 
 [node name="Camera" type="ClippedCamera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 2.5 )
+transform = Transform( 1, 0, 0, 0, 0.990979, 0.134021, 0, -0.134021, 0.990979, 0, 0.652182, 2.5 )
 current = true
 fov = 37.2
 margin = 5.0
