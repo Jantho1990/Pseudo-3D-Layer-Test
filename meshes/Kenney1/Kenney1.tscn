@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://meshes/Kenney1/platformPack_tile016.png" type="Texture" id=1]
+[ext_resource path="res://meshes/Kenney1/platformPack_tile018.png" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="QuadMesh" id=2]
+material = SubResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 3 )
+
+[node name="Kenney1" type="Spatial"]
+
+[node name="StoneWall" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Sand" type="MeshInstance" parent="."]
+mesh = SubResource( 4 )
+material/0 = null
