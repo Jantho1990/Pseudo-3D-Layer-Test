@@ -6,7 +6,7 @@
       "type": "text",
       "character": "TestPlayer1",
       "anonymous": true,
-      "text": "Welcome to the first dialogue test, test player!",
+      "text": "Welcome to the [b]first[/b] [i]dialogue test[/i], test player!",
       "next": "intro_1"
     },
     "intro_1": {
