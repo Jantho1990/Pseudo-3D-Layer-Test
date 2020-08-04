@@ -73,16 +73,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84177, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94697, 0.74413, 1.72202 )
 
 [node name="Dresser" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24345, 0.946447, -2.84251 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90592, 0.946447, -2.84251 )
 
 [node name="ClosetDoor" parent="." instance=ExtResource( 7 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.95, 1, 1.37423 )
 
 [node name="BedroomDoor" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13538, 1, -2.95 )
+visible = false
 
 [node name="BedroomBookshelf" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.7481, 1, -0.968 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05447, 1, -2.94453 )
 
 [node name="DeskLamp" parent="." instance=ExtResource( 9 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 2.48822, 1.6897, 1.722 )
