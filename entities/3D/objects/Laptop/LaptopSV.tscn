@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entities/3D/objects/Laptop/test_laptop.png" type="Texture" id=1]
+
+[node name="LaptopSV" type="Sprite3D"]
+pixel_size = 0.0313
+texture = ExtResource( 1 )

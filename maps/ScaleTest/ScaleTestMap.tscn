@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://meshes/SmallHouse/SmallHouse.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://entities/3D/players/ScaleTest/ScaleTestCharacter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/3D/objects/Bed/Bed.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/3D/objects/CeilingLight/CeilingLight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/3D/objects/BedroomDesk/BedroomDesk.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/3D/objects/Dresser/Dresser.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/3D/objects/ClosetDoor/ClosetDoor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/3D/objects/BedroomBookshelf/BedroomBookshelf.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entities/3D/objects/DeskLamp/DeskLamp.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/3D/objects/Laptop/LaptopSV.tscn" type="PackedScene" id=10]
+
+[node name="ScaleTestMap" type="Spatial"]
+
+[node name="Floor" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 0, 786433, 1, 0, 786433, 2, 0, 786433, 65533, 0, 786433, 65534, 0, 786433, 65535, 0, 786433, 0, 1, 786433, 1, 1, 786433, 2, 1, 786433, 65533, 1, 786433, 65534, 1, 786433, 65535, 1, 786433, 0, 2, 786433, 1, 2, 786433, 2, 2, 786433, 65533, 2, -1072955391, 65534, 2, 786433, 65535, 2, 786433, 0, 65533, 786433, 1, 65533, 786433, 2, 65533, 786433, 65533, 65533, 786433, 65534, 65533, 786433, 65535, 65533, 786433, 0, 65534, 786433, 1, 65534, 786433, 2, 65534, 786433, 65533, 65534, 786433, 65534, 65534, 786433, 65535, 65534, 786433, 0, 65535, 786433, 1, 65535, 786433, 2, 65535, 786433, 65533, 65535, 786433, 65534, 65535, 786433, 65535, 65535, 786433 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="WallNS" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_x = false
+data = {
+"cells": PoolIntArray( 3, 0, 1310720, 65533, 0, 1310720, 65539, 0, 1310720, 131069, 0, 1310720, 131075, 0, 1310720, 196605, 0, 1310720, 3, 1, 1310720, 65533, 1, 1310720, 65539, 1, 1310720, 131069, 1, 1310720, 131075, 1, 1310720, 196605, 1, 1310720, 3, 2, 1310720, 65533, 2, 1310720, 65539, 2, 1310720, 131069, 2, 1310720, 131075, 2, 1310720, 196605, 2, 1310720, 3, 65533, 1310720, 65533, 65533, 1310720, 65539, 65533, 1310720, 131069, 65533, 1310720, 131075, 65533, 1310720, 196605, 65533, 1310720, 3, 65534, 1310720, 65533, 65534, 1310720, 65539, 65534, 1310720, 131069, 65534, 1310720, 131075, 65534, 1310720, 196605, 65534, 1310720, 3, 65535, 1310720, 65533, 65535, 1310720, 65539, 65535, 1310720, 131069, 65535, 1310720, 131075, 65535, 1310720, 196605, 65535, 1310720 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 3, 0, 0 )
+}
+
+[node name="WallEW" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_z = false
+data = {
+"cells": PoolIntArray( 2, 3, 131072, 65533, 3, 131072, 0, 65533, 131072, 1, 65533, 131072, 2, 65533, 131072, 65533, 65533, 131072, 65534, 65533, 131072, 65535, 65533, 131072, 65536, 65533, 131072, 65537, 65533, 131072, 65538, 65533, 131072, 131069, 65533, 131072, 131070, 65533, 131072, 131071, 65533, 131072, 131072, 65533, 131072, 131073, 65533, 131072, 131074, 65533, 131072, 196605, 65533, 131072, 196606, 65533, 131072, 196607, 65533, 131072 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 3 )
+}
+
+[node name="Ceiling" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 196608, 0, 1507330, 196609, 0, 1507330, 196610, 0, 1507330, 262141, 0, 1507330, 262142, 0, 1507330, 262143, 0, 1507330, 196608, 1, 1507330, 196609, 1, 1507330, 196610, 1, 1507330, 262141, 1, 1507330, 262142, 1, 1507330, 262143, 1, 1507330, 196608, 2, 1507330, 196609, 2, 1507330, 196610, 2, 1507330, 262141, 2, 1507330, 262142, 2, 1507330, 262143, 2, 1507330, 196608, 65533, 1507330, 196609, 65533, 1507330, 196610, 65533, 1507330, 262141, 65533, 1507330, 262142, 65533, 1507330, 262143, 65533, 1507330, 196608, 65534, 1507330, 196609, 65534, 1507330, 196610, 65534, 1507330, 262141, 65534, 1507330, 262142, 65534, 1507330, 262143, 65534, 1507330, 196608, 65535, 1507330, 196609, 65535, 1507330, 196610, 65535, 1507330, 262141, 65535, 1507330, 262142, 65535, 1507330, 262143, 65535, 1507330 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 3, 0 )
+}
+
+[node name="ScaleTestCharacter" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16416, 0 )
+
+[node name="Bed" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53056, 0.542812, -0.482396 )
+
+[node name="CeilingLight" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.84177, 0 )
+
+[node name="BedroomDesk" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94697, 0.74413, 1.72202 )
+
+[node name="Dresser" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24345, 0.946447, -2.84251 )
+
+[node name="ClosetDoor" parent="." instance=ExtResource( 7 )]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2.95, 1, 1.37423 )
+
+[node name="BedroomDoor" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13538, 1, -2.95 )
+
+[node name="BedroomBookshelf" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.7481, 1, -0.968 )
+
+[node name="DeskLamp" parent="." instance=ExtResource( 9 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 2.48822, 1.6897, 1.722 )
+
+[node name="LaptopSV" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5078, 1.69, 1.722 )

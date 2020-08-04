@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/test_lamp.png-37f6d0b85f21eabbc6e52ca1ab74f95b.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://entities/3D/objects/DeskLamp/test_lamp.png"
+dest_files=[ "res://.import/test_lamp.png-37f6d0b85f21eabbc6e52ca1ab74f95b.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0
