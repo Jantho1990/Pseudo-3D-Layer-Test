@@ -43,7 +43,7 @@ func _on_TypewriterTimer_timeout():
     print(ContentBox.percent_visible, ' ', step_content_percent_visible)
     TypewriterTimer.start(step_next_letter)
   else:
-    TypewriterTimer.stop()
+    TypewriterTimer.stop() # Otherwise the timer doesn't seem to stop. /shrug
     print('WAAAAH')
 
 

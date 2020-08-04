@@ -8,5 +8,6 @@
 script = ExtResource( 3 )
 
 [node name="DialogueBoxRenderer" parent="." instance=ExtResource( 1 )]
+step_next_letter = 0.065
 
 [node name="TestPlayer1" parent="." instance=ExtResource( 2 )]
