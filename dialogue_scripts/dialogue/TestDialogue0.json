@@ -1,0 +1,25 @@
+{
+  "key": "Test Dialogue 0",
+  "start": "intro_0",
+  "content": {
+    "intro_0": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "anonymous": true,
+      "text": "Welcome to the first dialogue test, test player!",
+      "next": "intro_1"
+    },
+    "intro_1": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "character_display_name": "[b]Test Player 1[/b]",
+      "text": "Which I guess is me, so you're speaking to myself, I guess.",
+      "next": "intro_2"
+    },
+    "intro_2": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "text": "Ha ha?"
+    }
+  }
+}

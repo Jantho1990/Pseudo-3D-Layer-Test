@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Camera2D",
+"class": "ActiveCamera2D",
+"language": "GDScript",
+"path": "res://systems/active_camera/ActiveCamera2D.gd"
+}, {
 "base": "Node",
 "class": "BudgetSystem",
 "language": "GDScript",
 "path": "res://scripts/Budget.gd"
+}, {
+"base": "Position2D",
+"class": "CinematicMark2D",
+"language": "GDScript",
+"path": "res://systems/cinematics/CinematicMark2D.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Construct",
@@ -139,6 +149,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://map/TilemapCollisionArea.gd"
 }, {
+"base": "Timer",
+"class": "TimedTrigger",
+"language": "GDScript",
+"path": "res://systems/triggers/TimedTrigger.gd"
+}, {
+"base": "Area2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://systems/triggers/Trigger.gd"
+}, {
 "base": "DataStore",
 "class": "UserStore",
 "language": "GDScript",
@@ -150,7 +170,9 @@ _global_script_classes=[ {
 "path": "res://entities/waypoints/Waypoint.gd"
 } ]
 _global_script_class_icons={
+"ActiveCamera2D": "",
 "BudgetSystem": "",
+"CinematicMark2D": "",
 "Construct": "",
 "Controller": "",
 "CreateConstruct": "",
@@ -176,6 +198,8 @@ _global_script_class_icons={
 "TestEnemyController": "",
 "TestGroundLocomotor": "",
 "TilemapCollisionArea": "",
+"TimedTrigger": "",
+"Trigger": "",
 "UserStore": "",
 "Waypoint": ""
 }
@@ -193,6 +217,7 @@ helpers="*res://scripts/helpers.gd"
 math="*res://scripts/math.gd"
 GlobalStore="*res://scripts/DataStore.gd"
 GlobalSignal="*res://scripts/GlobalSignal.gd"
+DialogueHandler="*res://systems/dialogue_handler/dialogue_handler.gd"
 
 [display]
 
