@@ -89,4 +89,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05447, 1, -2.94453 )
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 2.48822, 1.6897, 1.722 )
 
 [node name="LaptopSV" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5078, 1.69, 1.722 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 1.5078, 1.69, 1.722 )
