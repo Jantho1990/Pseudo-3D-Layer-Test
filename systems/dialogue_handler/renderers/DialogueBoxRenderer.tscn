@@ -77,3 +77,4 @@ __meta__ = {
 }
 
 [node name="TypewriterTimer" type="Timer" parent="DialogueContainer/MarginContainer/VBoxContainer/DialogueContent"]
+one_shot = true

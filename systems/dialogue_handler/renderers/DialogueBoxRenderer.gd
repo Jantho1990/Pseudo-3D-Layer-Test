@@ -17,6 +17,7 @@ var current_block # The current block being processed.
 var next_block_name # The next block to be processed.
 
 onready var ContentBox = get_node('./DialogueContainer/MarginContainer/VBoxContainer/DialogueContent')
+onready var DialogueContainer = get_node('./DialogueContainer/')
 onready var NameBox = get_node('./DialogueContainer/MarginContainer/VBoxContainer/CharacterName')
 onready var TypewriterTimer = get_node('./DialogueContainer/MarginContainer/VBoxContainer/DialogueContent/TypewriterTimer')
 
@@ -30,6 +31,7 @@ func _input(event):
 func _ready():
   DialogueHandler.register_renderer(self, 'dialogue', true)
   TypewriterTimer.connect('timeout', self, '_on_TypewriterTimer_timeout')
+  DialogueContainer.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,10 +49,20 @@ func _on_TypewriterTimer_timeout():
     print('WAAAAH')
 
 
+# Begin rendering a dialogue.
+func begin():
+  DialogueContainer.visible = true
+
+
 # Clean exisiting data.
 func clean():
   ContentBox.percent_visible = 0
   current_block = null
+
+
+# Finish the current dialogue.
+func finish():
+  DialogueContainer.visible = false
 
 
 # Advance to the next block.
@@ -58,6 +70,8 @@ func next():
   clean()
   if next_block_name != '':
     render_block(next_block_name)
+  else:
+    finish()
 
 
 # Renders a dialogue script in a dialogue box.
@@ -79,6 +93,7 @@ func render_block(block_name):
 
 # Renders text-type content.
 func render_type_text(block_name : String, block):
+  begin()
   var character_name = block.character_display_name if block.has('character_display_name') \
     else block.character
   var text = block.text
