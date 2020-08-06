@@ -11,6 +11,7 @@ export(String) var next_command = 'ui_select'
 export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
 
 var paused = false # Dialogue rendering is paused.
+var typing = false # Is typewriter effect currently typing?
 var step_content_percent_visible = 0.0 # How much of the text in the content box is currently visible.
 
 var content
@@ -25,7 +26,11 @@ onready var TypewriterTimer = get_node('./DialogueContainer/MarginContainer/VBox
 
 func _input(event):
   if event.is_action_pressed(next_command):
-    next()
+    if typing:
+      skip_to_end()
+    else:
+      next()
+    
 
 
 # Called when the node enters the scene tree for the first time.
@@ -47,6 +52,7 @@ func _on_TypewriterTimer_timeout():
     TypewriterTimer.start(step_next_letter)
   else:
     TypewriterTimer.stop() # Otherwise the timer doesn't seem to stop. /shrug
+    typing = false
     print('WAAAAH')
 
 
@@ -108,6 +114,7 @@ func render_type_text(block_name : String, block):
   NameBox.bbcode_text = character_name
 
   # Render the dialogue text.
+  typing = true
   ContentBox.bbcode_text = text
   var raw_text = ContentBox.text
   var raw_text_length = raw_text.length()
@@ -115,3 +122,10 @@ func render_type_text(block_name : String, block):
   print(raw_text_length, ' ', step_content_percent_visible, 1 / raw_text_length)
   ContentBox.percent_visible = 0
   TypewriterTimer.start(step_next_letter)
+
+
+# Advance to the end of the current text block.
+func skip_to_end():
+  typing = false
+  TypewriterTimer.stop()
+  ContentBox.percent_visible = 1
