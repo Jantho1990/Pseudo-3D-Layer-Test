@@ -40,6 +40,19 @@ func _on_Layer_shift_delay_stop():
 func _on_Layer_shift_tween_all_completed():
   is_shifting_layer = false
 
+
+func _unhandled_input(event):
+  if Input.is_action_just_pressed('sprite_change_right'):
+    if $Sprite3D.frame == $Sprite3D.hframes - 1:
+      $Sprite3D.frame = 0
+    else:
+      $Sprite3D.frame += 1
+  if Input.is_action_just_pressed('sprite_change_left'):
+    if $Sprite3D.frame == 0:
+      $Sprite3D.frame = $Sprite3D.hframes - 1
+    else:
+      $Sprite3D.frame -= 1
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #  pass
