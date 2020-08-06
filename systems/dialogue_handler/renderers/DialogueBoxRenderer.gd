@@ -6,8 +6,9 @@ const BLOCK_TYPES = {
 }
 
 
-export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
+export(String) var anonymous_name = '???' # The string used when displaying an anonymous character's name.
 export(String) var next_command = 'ui_select'
+export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
 
 var paused = false # Dialogue rendering is paused.
 var step_content_percent_visible = 0.0 # How much of the text in the content box is currently visible.
@@ -94,8 +95,13 @@ func render_block(block_name):
 
 # Renders text-type content.
 func render_type_text(block_name : String, block):
-  var character_name = block.character_display_name if block.has('character_display_name') \
-    else block.character
+  var character_name
+  if block.has('anonymous') and block.anonymous:
+    character_name = anonymous_name
+  elif block.has('character_display_name'):
+    character_name = block.character_display_name
+  else:
+    character_name = block.character
   var text = block.text
 
   # Render the character name
