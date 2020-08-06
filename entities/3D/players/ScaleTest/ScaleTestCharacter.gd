@@ -19,6 +19,7 @@ var layer_shift_delay_transition_time = 0.3
 # onready var Animator = $AnimationPlayer
 onready var LayerShiftDelay = $LayerShiftDelay
 onready var LayerShiftTween = $LayerShiftTween
+onready var Sprite = $Sprite3D64
 
 
 # Called when the node enters the scene tree for the first time.
@@ -43,15 +44,15 @@ func _on_Layer_shift_tween_all_completed():
 
 func _unhandled_input(event):
   if Input.is_action_just_pressed('sprite_change_right'):
-    if $Sprite3D.frame == $Sprite3D.hframes - 1:
-      $Sprite3D.frame = 0
+    if Sprite.frame == Sprite.hframes - 1:
+      Sprite.frame = 0
     else:
-      $Sprite3D.frame += 1
+      Sprite.frame += 1
   if Input.is_action_just_pressed('sprite_change_left'):
-    if $Sprite3D.frame == 0:
-      $Sprite3D.frame = $Sprite3D.hframes - 1
+    if Sprite.frame == 0:
+      Sprite.frame = Sprite.hframes - 1
     else:
-      $Sprite3D.frame -= 1
+      Sprite.frame -= 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
