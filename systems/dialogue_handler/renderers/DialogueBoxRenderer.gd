@@ -79,6 +79,7 @@ func render(dialogue):
   content = dialogue.content
 
   var first_block_name = dialogue.start if dialogue.has('start') else 'first_block'
+  begin()
   render_block(first_block_name)
 
 
@@ -93,7 +94,6 @@ func render_block(block_name):
 
 # Renders text-type content.
 func render_type_text(block_name : String, block):
-  begin()
   var character_name = block.character_display_name if block.has('character_display_name') \
     else block.character
   var text = block.text
