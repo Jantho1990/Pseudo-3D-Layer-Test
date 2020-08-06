@@ -81,6 +81,17 @@ func next():
     finish()
 
 
+# Handle any signals present in a block.
+func process_signals(block):
+  if not block.has('signals'): return
+  
+  var signals = block.signals
+  for dialogue_signal in signals:
+    match dialogue_signal.has('data'):
+      true: GlobalSignal.dispatch(dialogue_signal.name, dialogue_signal.data)
+      false: GlobalSignal.dispatch(dialogue_signal.name, dialogue_signal.data)
+
+
 # Renders a dialogue script in a dialogue box.
 func render(dialogue):
   content = dialogue.content
@@ -101,6 +112,8 @@ func render_block(block_name):
 
 # Renders text-type content.
 func render_type_text(block_name : String, block):
+  process_signals(block)
+  
   var character_name
   if block.has('anonymous') and block.anonymous:
     character_name = anonymous_name

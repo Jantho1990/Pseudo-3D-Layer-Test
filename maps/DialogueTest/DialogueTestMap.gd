@@ -18,8 +18,10 @@ func _ready():
 #  pass
   
   
-func _on_Test_signal():
+func _on_Test_signal(data):
   print('Test signal received!')
+  print(data.text)
+  GlobalSignal.dispatch('debug_label', { 'text': data.text })
     
     
 func _on_Timer_timeout():
