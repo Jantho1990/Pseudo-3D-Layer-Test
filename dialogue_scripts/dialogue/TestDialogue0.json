@@ -25,7 +25,38 @@
     "intro_2": {
       "type": "text",
       "character": "TestPlayer1",
-      "text": "Ha ha?"
+      "text": "Ha ha?",
+      "next": "intro_choice"
+    },
+    "intro_choice": {
+      "type": "choice",
+      "choice_character": "TestPlayer1",
+      "choice_description": "This is a choice you can make.",
+      "choices": [
+        { "text": "I don't wanna!", "next": "intro_choice_a" },
+        { "text": "Oh cool, I choose this!", "next": "intro_choice_b" },
+        {
+          "text": "I say we take off and nuke 'em from orbit.",
+          "next": "intro_choice_c"
+        }
+      ]
+    },
+    "intro_choice_a": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "character_display_name": "Rush",
+      "text": "If you choose not to decide, you still have made a choice!"
+    },
+    "intro_choice_b": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "text": "That was a great choice!"
+    },
+    "intro_choice_c": {
+      "type": "text",
+      "character": "TestPlayer1",
+      "character_display_name": "Hicks",
+      "text": "It's the only way to be sure."
     }
   }
 }
