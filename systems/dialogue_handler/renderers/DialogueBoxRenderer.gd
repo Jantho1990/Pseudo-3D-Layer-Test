@@ -126,6 +126,7 @@ func process_signals(block):
 
 # Renders a dialogue script in a dialogue box.
 func render(dialogue):
+  clean() # Make sure nothing is currently being shown.
   content = dialogue.content
 
   var first_block_name = dialogue.start if dialogue.has('start') else 'first_block'

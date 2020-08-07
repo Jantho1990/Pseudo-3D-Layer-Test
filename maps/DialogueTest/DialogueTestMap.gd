@@ -8,9 +8,14 @@ extends Spatial
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  $Timer.connect('timeout', self, '_on_Timer_timeout')
-  $Timer.start(0.5)
+  # $Timer.connect('timeout', self, '_on_Timer_timeout')
+  # $Timer.start(0.5)
   GlobalSignal.listen('test_signal', self, '_on_Test_signal')
+
+
+func _unhandled_input(_event):
+  if Input.is_action_just_pressed('start_dialogue_test'):
+    DialogueHandler.show_dialogue('Test Dialogue 0')
   
   
 # Called every frame. 'delta' is the elapsed time since the previous frame.
