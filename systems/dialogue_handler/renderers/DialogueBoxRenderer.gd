@@ -193,7 +193,7 @@ func render_type_text(_block_name : String, block):
   process_signals(block)
   
   var character_name = get_character_name(block)
-  var text = block.text
+  var text = DialogueHandler.parse_text_story_data(block.text)
 
   # Render the character name
   NameBox.bbcode_text = character_name

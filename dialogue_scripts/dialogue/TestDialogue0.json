@@ -6,14 +6,14 @@
       "type": "text",
       "character": "TestPlayer1",
       "anonymous": true,
-      "text": "Welcome to the [b]first[/b] [i]dialogue test[/i], test player!",
+      "text": "Welcome to the [b]first[/b] [i]dialogue test[/i], test {{test1.test1b}}!",
       "next": "intro_1"
     },
     "intro_1": {
       "type": "text",
       "character": "TestPlayer1",
       "character_display_name": "[b]Test Player 1[/b]",
-      "text": "Which I guess is me, so you're speaking to myself, I guess.",
+      "text": "Which I guess is me, so you're speaking to {{test0}}, I guess.",
       "signals": [
         {
           "name": "test_signal",
@@ -25,7 +25,7 @@
     "intro_2": {
       "type": "text",
       "character": "TestPlayer1",
-      "text": "Ha ha?",
+      "text": "Ha ha {{test1.test1a.test1b}}?",
       "next": "intro_choice"
     },
     "intro_choice": {

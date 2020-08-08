@@ -22,9 +22,28 @@ var lore_renderers = {}
 var lore_default_renderer = ''
 
 
+###
+# Story global data store.
+###
+var story_data = preload('res://scripts/DataStore.gd')
+var story_markup_regex = RegEx.new()
+
+
 func _ready():
   load_dialogues()
   load_lore()
+  story_data = story_data.new()
+  story_markup_regex.compile('(?:{{)([A-z0-9\\.]*)(?:}})')
+
+
+# Create a new value in the story data global.
+func create_story_data(key, value):
+  # Prevents us from overriding existing data value.
+  if story_data.has(key):
+    print('Key "', key, '" already exists in global story data')
+    return
+  
+  story_data.set(key, value)
 
 
 func get_key_from_store(key, store_type):
@@ -39,6 +58,14 @@ func get_key_from_store(key, store_type):
   print('Key "', key, '" not found in "', store_type ,'".')
 
 
+# Get story data.
+func get_story_data(key):
+  if story_data.has(key):
+    return story_data.get(key)
+  
+  return null
+
+
 # Load all dialogue scripts from the dialogues directory.
 func load_dialogues():
   store_data_from_dir(SCRIPT_PATH + DIALOGUE_PATH, dialogue_scripts_dict)
@@ -47,6 +74,17 @@ func load_dialogues():
 # Load all lore scripts from the lore directory.
 func load_lore():
   store_data_from_dir(SCRIPT_PATH + LORE_PATH, lore_scripts_dict)
+
+
+# Parse a line of text and replace markup with story data values.
+func parse_text_story_data(text):
+  var ret = text
+  for result in story_markup_regex.search_all(text):
+    var target = result.get_string(0) # Using 0 to get the brackets with the value.
+    var key = result.get_string(1) # Using 1 to get the actual value, which is our key.
+    var story_data_value = story_data.get(key)
+    ret = ret.replace(target, story_data_value)
+  return ret
 
 
 # Called by a renderer to register itself in the list of renderers.
@@ -60,6 +98,16 @@ func register_renderer(renderer_node, renderer_type : String, mark_as_default :=
       if mark_as_default or dialogue_renderers.size() == 1: lore_default_renderer = renderer_node.name
     _:
       print('Renderer type "', renderer_type, '" not found.')
+
+
+# Set a value for an existing value in the story data global.
+func set_story_data(key, value):
+  # Can only set data to values that have already been created.
+  if not story_data.has('key'):
+    print('Key "', key, '" not found in global story data.')
+    return
+  
+  story_data.set(key, value)
 
 
 # Begins the process of rendering a dialogue script.
