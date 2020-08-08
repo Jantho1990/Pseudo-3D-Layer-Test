@@ -117,7 +117,7 @@ func next():
 func process_signals(block):
   if not block.has('signals'): return
   
-  var signals = block.signals
+  var signals : Array = block.signals
   print(signals)
   for dialogue_signal in signals:
     match dialogue_signal.has('data'):

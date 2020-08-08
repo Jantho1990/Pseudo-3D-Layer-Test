@@ -38,6 +38,10 @@
         {
           "text": "I say we take off and nuke 'em from orbit.",
           "next": "intro_choice_c"
+        },
+        {
+          "text": "I want a {{test1.test1c}}.",
+          "next": "intro_choice_b"
         }
       ]
     },
