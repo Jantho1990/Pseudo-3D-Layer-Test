@@ -152,21 +152,21 @@ func postprocess_block(block):
 
 # Handles pre-processing which occurs for all blocks.
 func preprocess_block(block):
-  process_signals(block)
   block = DialogueHandler.parse_block_story_data(block)
+  process_signals(block)
   return block
 
 
 # Wait after processing the block before advancing to the next. This can be skipped by player.
 func process_delay_after():
-  if delay_before_time > 0:
+  if delay_after_time > 0:
     delay_after_time_active = true
     DelayTimer.start(delay_after_time)
 
 
 # Wait before processing the rest of the block. This can be skipped by player.
 func process_delay_before():
-  if delay_after_time > 0:
+  if delay_before_time > 0:
     delay_before_time_active = true
     DelayTimer.start(delay_before_time)
 
