@@ -7,7 +7,7 @@ extends KinematicBody
 export(bool) var free_move = true
 export(bool) var free_direction = true
 var velocity = Vector3()
-var speed = 4
+var speed = 2
 var gravity = Vector3.DOWN * 2
 var moving = false
 var direction = Vector2(0, 0)
