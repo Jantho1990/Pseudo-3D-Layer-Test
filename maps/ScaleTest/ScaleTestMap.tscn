@@ -61,7 +61,7 @@ __meta__ = {
 }
 
 [node name="ScaleTestCharacter" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.995072, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 free_direction = false
 
 [node name="Bed" parent="." instance=ExtResource( 3 )]
