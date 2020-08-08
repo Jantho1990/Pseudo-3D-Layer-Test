@@ -26,6 +26,7 @@ onready var CharacterExpressions = [
 onready var cei = 0
 onready var LayerShiftDelay = $LayerShiftDelay
 onready var LayerShiftTween = $LayerShiftTween
+onready var Sprite = CharacterExpressions[cei]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -41,6 +42,7 @@ func _physics_process(delta):
   # animate()
   # if not moving: Animator.stop()
   velocity = move_and_slide(velocity, Vector3.UP)
+  face_direction()
 
 func _on_Layer_shift_delay_stop():
   layer_shift_delayed = false
@@ -79,6 +81,20 @@ func change_expression(face):
       CharacterExpressions[ce].visible = false
     else:
       CharacterExpressions[ce].visible = true
+  Sprite = CharacterExpressions[cei]
+  face_direction()
+
+
+func face_direction():
+  match direction:
+    Vector2(0, 1): Sprite.frame = 0
+    Vector2(0, -1): Sprite.frame = 1
+    Vector2(1, 0): Sprite.frame = 2
+    Vector2(-1, 0): Sprite.frame = 3
+    Vector2(1, 1): Sprite.frame = 4
+    Vector2(-1, 1): Sprite.frame = 5
+    Vector2(1, -1): Sprite.frame = 6
+    Vector2(-1, -1): Sprite.frame = 7
 
 
 func get_input():
@@ -102,20 +118,24 @@ func free_move():
   if Input.is_action_pressed('ui_left'):
     moving = true
     velocity += -transform.basis.x * speed
-    direction = Vector2(-1, 0)
+    direction = Vector2(-1, direction.y)
   elif Input.is_action_pressed('ui_right'):
     moving = true
     velocity += transform.basis.x * speed
-    direction = Vector2(1, 0)
+    direction = Vector2(1, direction.y)
+  else:
+    direction = Vector2(0, direction.y)
 
   if Input.is_action_pressed('ui_up'):
     moving = true
     velocity += -transform.basis.z * speed
-    direction = Vector2(0, -1)
+    direction = Vector2(direction.x, -1)
   elif Input.is_action_pressed('ui_down'):
     moving = true
     velocity += transform.basis.z * speed
-    direction = Vector2(0, 1)
+    direction = Vector2(direction.x, 1)
+  else:
+    direction = Vector2(direction.x, 0)
     
   velocity.y = vy
 
