@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://entities/3D/players/ScaleTest/ScaleTestCharacter.gd" type="Script" id=1]
 [ext_resource path="res://entities/3D/players/ScaleTest/test_character_with_four_facial_expressions.png" type="Texture" id=2]
 [ext_resource path="res://entities/3D/players/ScaleTest/test_character_with_4_expressions_-_64.png" type="Texture" id=3]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_neutral_face.png" type="Texture" id=4]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_sad.png" type="Texture" id=5]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_mad.png" type="Texture" id=6]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_happy.png" type="Texture" id=7]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns.png" type="Texture" id=8]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.334268, 0.890771, 0.0652516 )
@@ -18,8 +23,40 @@ hframes = 4
 region_rect = Rect2( 0, 0, 408, 256 )
 
 [node name="Sprite3D64" type="Sprite3D" parent="."]
+visible = false
 pixel_size = 0.0156
 texture = ExtResource( 3 )
+hframes = 4
+
+[node name="Sprite3D64Blank" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.0156
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Neutral" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Happy" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 7 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Sad" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 5 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Angry" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 6 )
+vframes = 2
 hframes = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

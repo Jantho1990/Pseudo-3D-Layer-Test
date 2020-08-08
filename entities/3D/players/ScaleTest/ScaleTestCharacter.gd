@@ -17,13 +17,20 @@ var layer_shift_delay_time = 1
 var layer_shift_delay_transition_time = 0.3
 
 # onready var Animator = $AnimationPlayer
+onready var CharacterExpressions = [
+  $Sprite3D64Neutral,
+  $Sprite3D64Happy,
+  $Sprite3D64Sad,
+  $Sprite3D64Angry
+]
+onready var cei = 0
 onready var LayerShiftDelay = $LayerShiftDelay
 onready var LayerShiftTween = $LayerShiftTween
-onready var Sprite = $Sprite3D64
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  change_expression('default')
   LayerShiftDelay.connect('timeout', self, '_on_Layer_shift_delay_stop')
   LayerShiftTween.connect('tween_all_completed', self, '_on_Layer_shift_tween_all_completed')
 
@@ -44,19 +51,35 @@ func _on_Layer_shift_tween_all_completed():
 
 func _unhandled_input(event):
   if Input.is_action_just_pressed('sprite_change_right'):
-    if Sprite.frame == Sprite.hframes - 1:
-      Sprite.frame = 0
-    else:
-      Sprite.frame += 1
+    change_expression('right')
   if Input.is_action_just_pressed('sprite_change_left'):
-    if Sprite.frame == 0:
-      Sprite.frame = Sprite.hframes - 1
-    else:
-      Sprite.frame -= 1
+    change_expression('left')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #  pass
+
+
+func change_expression(face):
+  match face:
+    'left':
+      cei -= 1
+      if cei < 0:
+        cei = CharacterExpressions.size() - 1
+    'right':
+      cei += 1
+      if cei >= CharacterExpressions.size():
+        cei = 0
+    'default':
+      cei = 0
+    _: return
+  
+  for ce in range(0, (CharacterExpressions.size())):
+    if ce != cei:
+      CharacterExpressions[ce].visible = false
+    else:
+      CharacterExpressions[ce].visible = true
+
 
 func get_input():
   if free_move:

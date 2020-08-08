@@ -40,6 +40,10 @@ func _ready():
 func create_story_data(key, value):
   # Prevents us from overriding existing data value.
   if story_data.has(key):
+    # This might be broken, test map let me overwrite a key.
+    # Which is what the global data store is supposed to do,
+    # but this check is supposed to prevent that for our case.
+    # /shrug
     print('Key "', key, '" already exists in global story data')
     return
   
