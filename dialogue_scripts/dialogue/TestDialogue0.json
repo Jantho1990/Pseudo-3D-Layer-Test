@@ -26,6 +26,22 @@
       "type": "text",
       "character": "TestPlayer1",
       "text": "Ha ha {{test1.test1a.test1b}}?",
+      "next": "intro_action1"
+    },
+    "intro_action1": {
+      "type": "action",
+      "delay": {
+        "before": 1.0,
+        "after": 1.0
+      },
+      "signals": [
+        {
+          "name": "test_signal",
+          "data": {
+            "text": "Hey look I changed this text again {{test0}}!"
+          }
+        }
+      ],
       "next": "intro_choice"
     },
     "intro_choice": {

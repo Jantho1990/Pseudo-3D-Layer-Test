@@ -136,3 +136,6 @@ margin_bottom = 39.0
 custom_constants/separation = 4
 
 [node name="ChoiceButton" parent="ChoiceContainer/MarginContainer/VBoxContainer/ChoiceButtonContainer" instance=ExtResource( 6 )]
+
+[node name="DelayTimer" type="Timer" parent="."]
+one_shot = true

@@ -3,7 +3,8 @@ extends Control
 
 const BLOCK_TYPES = {
   'TEXT': 'text',
-  'CHOICE': 'choice'
+  'CHOICE': 'choice',
+  'ACTION': 'action',
 }
 
 var ChoiceButton = preload('res://systems/dialogue_handler/renderers/DBRChoiceButton.tscn')
@@ -12,6 +13,11 @@ export(String) var anonymous_name = '???' # The string used when displaying an a
 export(String) var next_command = 'ui_select'
 export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
 
+var delay_before_time = 0.0
+var delay_before_time_active = false
+var delay_after_time = 0.0
+var delay_after_time_active = false
+var delay_func = null # Used to pause execution while DelayTimer is active.
 var paused = false # Dialogue rendering is paused.
 var typing = false # Is typewriter effect currently typing?
 var step_content_percent_visible = 0.0 # How much of the text in the content box is currently visible.
@@ -26,6 +32,7 @@ onready var ChoiceBoxes = $'./ChoiceContainer/MarginContainer/VBoxContainer/Choi
 onready var ChoiceContainer = $'./ChoiceContainer'
 onready var ChoiceDescription = $'./ChoiceContainer/MarginContainer/VBoxContainer/ChoiceDescription'
 onready var DialogueContainer = $'./DialogueContainer/'
+onready var DelayTimer = $'./DelayTimer'
 onready var NameBox = $'./DialogueContainer/MarginContainer/VBoxContainer/CharacterName'
 onready var TypewriterTimer = $'./DialogueContainer/MarginContainer/VBoxContainer/DialogueContent/TypewriterTimer'
 
@@ -42,19 +49,30 @@ func _input(event):
 # Called when the node enters the scene tree for the first time.
 func _ready():
   DialogueHandler.register_renderer(self, 'dialogue', true)
+  DelayTimer.connect('timeout', self, '_on_DelayTimer_timeout')
   TypewriterTimer.connect('timeout', self, '_on_TypewriterTimer_timeout')
   DialogueContainer.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#  pass
+func _process(delta):
+  if delay_timer_active():
+    return
 
 
 # Handle choice button press.
 func _on_Choice_button_press(choice_next):
   next_block_name = choice_next
   next()
+
+
+func _on_DelayTimer_timeout():
+  if delay_before_time_active:
+    delay_before_time_active = false
+    delay_before_time = 0.0
+  if delay_after_time_active:
+    delay_after_time_active = false
+    delay_after_time = 0.0
 
 
 func _on_TypewriterTimer_timeout():
@@ -87,6 +105,11 @@ func clean_choice_boxes():
     child.queue_free()
 
 
+# Check if either delay timer is active.
+func delay_timer_active():
+  return delay_after_time_active || delay_before_time_active
+
+
 # Finish the current dialogue.
 func finish():
   DialogueContainer.visible = false
@@ -104,6 +127,15 @@ func get_character_name(block):
   return null
 
 
+# Set the delay values if the block has them.
+func get_delay(block):
+  if block.has('delay'):
+    if block.delay.has('before'):
+      delay_before_time = block.delay.before
+    if block.delay.has('after'):
+      delay_after_time = block.delay.after
+
+
 # Advance to the next block.
 func next():
   clean()
@@ -111,6 +143,32 @@ func next():
     render_block(next_block_name)
   else:
     finish()
+
+
+# Handles processing which occurs after block is finished rendering.
+func postprocess_block(block):
+  pass
+
+
+# Handles pre-processing which occurs for all blocks.
+func preprocess_block(block):
+  process_signals(block)
+  block = DialogueHandler.parse_block_story_data(block)
+  return block
+
+
+# Wait after processing the block before advancing to the next. This can be skipped by player.
+func process_delay_after():
+  if delay_before_time > 0:
+    delay_after_time_active = true
+    DelayTimer.start(delay_after_time)
+
+
+# Wait before processing the rest of the block. This can be skipped by player.
+func process_delay_before():
+  if delay_after_time > 0:
+    delay_before_time_active = true
+    DelayTimer.start(delay_before_time)
 
 
 # Handle any signals present in a block.
@@ -136,12 +194,21 @@ func render(dialogue):
 
 # Renders a block of content.
 func render_block(block_name):
-  var block = DialogueHandler.parse_block_story_data(content[block_name])
+  var block = content[block_name]
+  get_delay(block)
+  process_delay_before()
+  if delay_timer_active():
+    yield(DelayTimer, 'timeout')
+  block = preprocess_block(block)
   current_block = block
   next_block_name = block.next if block.has('next') else ''
   match block.type:
     BLOCK_TYPES.TEXT: render_type_text(block_name, block)
     BLOCK_TYPES.CHOICE: render_type_choice(block_name, block)
+    BLOCK_TYPES.ACTION: render_type_action(block_name, block)
+  
+  postprocess_block(block)
+  process_delay_after()
 
 
 # Render choice buttons.
@@ -171,6 +238,11 @@ func render_text_box_content(text):
   step_content_percent_visible = 1 / float(raw_text_length)
   ContentBox.percent_visible = 0
   TypewriterTimer.start(step_next_letter)
+
+
+# Renders an action-type block.
+func render_type_action(_block_name: String, block):
+  pass
 
 
 # Renders a choice-type block.
