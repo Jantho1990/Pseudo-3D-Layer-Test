@@ -26,12 +26,19 @@
       "type": "text",
       "character": "TestPlayer1",
       "text": "Ha ha {{test1.test1a.test1b}}?",
+      "next": "intro_condition1"
+    },
+    "intro_condition1": {
+      "type": "text",
+      "conditions": ["1 + 2 == 3", "{{test0}} == 'fish'"],
+      "character": "TestPlayer1",
+      "text": "1 + 2 does equal 3, and {{test0}} does equal 'fish', so I can show myself.",
       "next": "intro_action1"
     },
     "intro_action1": {
       "type": "action",
       "delay": {
-        "before": 1.0,
+        "before": 2.0,
         "after": 1.0
       },
       "signals": [

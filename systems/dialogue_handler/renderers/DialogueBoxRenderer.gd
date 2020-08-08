@@ -13,6 +13,7 @@ export(String) var anonymous_name = '???' # The string used when displaying an a
 export(String) var next_command = 'ui_select'
 export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
 
+var advance_to_next_block = false # Set whenever we want to automatically advance to the next block.
 var delay_before_time = 0.0
 var delay_before_time_active = false
 var delay_after_time = 0.0
@@ -91,6 +92,7 @@ func begin():
 
 # Clean exisiting data.
 func clean():
+  advance_to_next_block = false
   NameBox.bbcode_text = ''
   ContentBox.percent_visible = 0
   current_block = null
@@ -195,13 +197,19 @@ func render(dialogue):
 # Renders a block of content.
 func render_block(block_name):
   var block = content[block_name]
+  if not validate_block_conditions(block):
+    next_block_name = block.next if block.has('next') else ''
+    return next()
+  
   get_delay(block)
   process_delay_before()
   if delay_timer_active():
     yield(DelayTimer, 'timeout')
+
   block = preprocess_block(block)
   current_block = block
   next_block_name = block.next if block.has('next') else ''
+
   match block.type:
     BLOCK_TYPES.TEXT: render_type_text(block_name, block)
     BLOCK_TYPES.CHOICE: render_type_choice(block_name, block)
@@ -209,6 +217,8 @@ func render_block(block_name):
   
   postprocess_block(block)
   process_delay_after()
+  if advance_to_next_block:
+    next()
 
 
 # Render choice buttons.
@@ -242,17 +252,13 @@ func render_text_box_content(text):
 
 # Renders an action-type block.
 func render_type_action(_block_name: String, block):
-  # This block is currently a placeholder, since we can dispatch
-  # signals from any block. Action is meant to be used for doing
-  # things without requiring the block to have text.
-  # tl;dr we don't actually need to do anything, here.
-  pass
+  # Action doesn't render anything visually. We can just
+  # call the next block.
+  advance_to_next_block = true
 
 
 # Renders a choice-type block.
 func render_type_choice(_block_name: String, block):
-  process_signals(block)
-
   var character_name = get_character_name(block)
   if !!character_name: NameBox.bbcode_text = character_name
   if block.has('text'): render_text_box_content(block.text)
@@ -266,8 +272,6 @@ func render_type_choice(_block_name: String, block):
 
 # Renders text-type content.
 func render_type_text(_block_name : String, block):
-  process_signals(block)
-  
   var character_name = get_character_name(block)
   var text = block.text
 
@@ -291,3 +295,31 @@ func skip_to_end():
   typing = false
   TypewriterTimer.stop()
   ContentBox.percent_visible = 1
+
+
+# Process any conditions the block has and return true if they pass.
+func validate_block_conditions(block):
+  var expr = Expression.new()
+  var conditions
+  if not block.has('conditions'):
+    return true
+
+  if typeof(block.conditions) == TYPE_ARRAY:
+    conditions = block.conditions
+  else:
+    conditions = [block.conditions]
+  
+  for condition in conditions:
+    condition = DialogueHandler.parse_text_story_data(condition)
+    var error = expr.parse(condition, [])
+    if error != OK:
+      print('Condition "', condition, '" could not be parsed.')
+      return true
+    var result = expr.execute([], null, true)
+    if not expr.has_execute_failed():
+      if result == true:
+        continue
+      else:
+        return false
+  
+  return true
