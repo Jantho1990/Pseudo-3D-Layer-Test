@@ -242,6 +242,10 @@ func render_text_box_content(text):
 
 # Renders an action-type block.
 func render_type_action(_block_name: String, block):
+  # This block is currently a placeholder, since we can dispatch
+  # signals from any block. Action is meant to be used for doing
+  # things without requiring the block to have text.
+  # tl;dr we don't actually need to do anything, here.
   pass
 
 
