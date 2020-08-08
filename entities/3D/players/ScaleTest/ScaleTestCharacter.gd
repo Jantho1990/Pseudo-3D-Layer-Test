@@ -38,6 +38,7 @@ func _ready():
 
 
 func _physics_process(delta):
+  # Disabling to fix jitters until I can look into this: https://godotengine.org/qa/42375/unexpected-collision-normals-touching-adjacent-collision
   # if not is_on_floor():
   #   velocity += gravity * delta
   get_input()
