@@ -5,6 +5,7 @@ extends KinematicBody
 
 # Declare member variables here. Examples:
 export(bool) var free_move = true
+export(bool) var free_direction = true
 var velocity = Vector3()
 var speed = 4
 var gravity = Vector3.DOWN * 2
@@ -86,15 +87,22 @@ func change_expression(face):
 
 
 func face_direction():
-  match direction:
-    Vector2(0, 1): Sprite.frame = 0
-    Vector2(0, -1): Sprite.frame = 1
-    Vector2(1, 0): Sprite.frame = 2
-    Vector2(-1, 0): Sprite.frame = 3
-    Vector2(1, 1): Sprite.frame = 4
-    Vector2(-1, 1): Sprite.frame = 5
-    Vector2(1, -1): Sprite.frame = 6
-    Vector2(-1, -1): Sprite.frame = 7
+  if free_direction:
+    match direction:
+      Vector2(0, 1): Sprite.frame = 0
+      Vector2(0, -1): Sprite.frame = 1
+      Vector2(1, 0): Sprite.frame = 2
+      Vector2(-1, 0): Sprite.frame = 3
+      Vector2(1, 1): Sprite.frame = 4
+      Vector2(-1, 1): Sprite.frame = 5
+      Vector2(1, -1): Sprite.frame = 6
+      Vector2(-1, -1): Sprite.frame = 7
+  else:
+    match direction:
+      Vector2(0, 1), Vector2(1, 1), Vector2(-1, 1): Sprite.frame = 0
+      Vector2(0, -1), Vector2(1, -1), Vector2(-1, -1): Sprite.frame = 1
+      Vector2(1, 0): Sprite.frame = 2
+      Vector2(-1, 0): Sprite.frame = 3
 
 
 func get_input():
