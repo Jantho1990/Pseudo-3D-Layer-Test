@@ -12,12 +12,12 @@
     "intro_1": {
       "type": "text",
       "character": "TestPlayer1",
-      "character_display_name": "[b]Test Player 1[/b]",
+      "character_display_name": "[b]Test {{test1.test1b}} 1[/b]",
       "text": "Which I guess is me, so you're speaking to {{test0}}, I guess.",
       "signals": [
         {
           "name": "test_signal",
-          "data": { "text": "Here is some dispatched text!" }
+          "data": { "text": "Here is some dispatched text {{test1.test1c}}!" }
         }
       ],
       "next": "intro_2"

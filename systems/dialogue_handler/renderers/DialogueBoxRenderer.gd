@@ -118,10 +118,11 @@ func process_signals(block):
   if not block.has('signals'): return
   
   var signals = block.signals
+  print(signals)
   for dialogue_signal in signals:
     match dialogue_signal.has('data'):
       true: GlobalSignal.dispatch(dialogue_signal.name, dialogue_signal.data)
-      false: GlobalSignal.dispatch(dialogue_signal.name, dialogue_signal.data)
+      false: GlobalSignal.dispatch(dialogue_signal.name)
 
 
 # Renders a dialogue script in a dialogue box.
@@ -136,7 +137,7 @@ func render(dialogue):
 
 # Renders a block of content.
 func render_block(block_name):
-  var block = content[block_name]
+  var block = DialogueHandler.parse_block_story_data(content[block_name])
   current_block = block
   next_block_name = block.next if block.has('next') else ''
   match block.type:
@@ -193,7 +194,7 @@ func render_type_text(_block_name : String, block):
   process_signals(block)
   
   var character_name = get_character_name(block)
-  var text = DialogueHandler.parse_text_story_data(block.text)
+  var text = block.text
 
   # Render the character name
   NameBox.bbcode_text = character_name

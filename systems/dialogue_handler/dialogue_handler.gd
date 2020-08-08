@@ -78,6 +78,21 @@ func load_lore():
   store_data_from_dir(SCRIPT_PATH + LORE_PATH, lore_scripts_dict)
 
 
+# Parse any story data variables in a block.
+func parse_block_story_data(block):
+  var ret = {} if typeof(block) == TYPE_DICTIONARY else []
+  for key in block:
+    var value = block[key] if typeof(block) == TYPE_DICTIONARY else key
+    if typeof(value) == TYPE_STRING:
+      value = parse_text_story_data(value)
+    elif typeof(value) == TYPE_DICTIONARY or typeof(value) == TYPE_ARRAY:
+      value = parse_block_story_data(value)
+    match typeof(ret):
+      TYPE_DICTIONARY: ret[key] = value
+      TYPE_ARRAY: ret.push_back(value)
+  return ret
+
+
 # Parse a line of text and replace markup with story data values.
 func parse_text_story_data(text):
   var ret = text
