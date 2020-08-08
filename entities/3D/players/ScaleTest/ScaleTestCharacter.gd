@@ -38,7 +38,8 @@ func _ready():
 
 
 func _physics_process(delta):
-  velocity += gravity * delta
+  # if not is_on_floor():
+  #   velocity += gravity * delta
   get_input()
   # animate()
   # if not moving: Animator.stop()

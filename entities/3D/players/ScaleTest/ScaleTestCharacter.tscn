@@ -10,7 +10,6 @@
 [ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns.png" type="Texture" id=8]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.334268, 0.890771, 0.0652516 )
 
 [node name="ScaleTestCharacter" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -60,7 +59,7 @@ vframes = 2
 hframes = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0216604, 0 )
+transform = Transform( 0.280764, 0, 0, 0, 0.904893, 0, 0, 0, 0.111314, 0, -0.0567125, 0 )
 shape = SubResource( 1 )
 
 [node name="Camera" type="ClippedCamera" parent="."]
