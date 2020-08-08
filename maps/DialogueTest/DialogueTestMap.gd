@@ -12,7 +12,7 @@ func _ready():
   # $Timer.start(0.5)
   GlobalSignal.listen('test_signal', self, '_on_Test_signal')
   DialogueHandler.create_story_data('test0', 'fish')
-  DialogueHandler.create_story_data('test1.test1a', 'shark')
+  DialogueHandler.create_story_data('test1.test1c', 'shark')
   DialogueHandler.create_story_data('test1.test1b', 'petunia')
   DialogueHandler.create_story_data('test1.test1a.test1b', 'rabbit')
 

@@ -46,6 +46,8 @@ func create_story_data(key, value):
     # /shrug
     print('Key "', key, '" already exists in global story data')
     return
+  else:
+    print('Key "', key, '" does not exist in global story data')
   
   story_data.set(key, value)
 

@@ -48,7 +48,8 @@ func get(key):
   # Should we add an event here to say data was retrieved?
   return ret
 
-func has(key):
+# Returns true if the entire key chain exists.
+func has_all(key):
   # Should we add an event here to say data is being accessed?
   if key.find('.') == -1:
     return _data.has(key)
@@ -61,6 +62,23 @@ func has(key):
     ret = ret[_key]
     if typeof(ret) != TYPE_DICTIONARY:
       return false
+  # Should we add an event here to say data was retrieved?
+  # If we make it here, then the data was found, so return true.
+  return true
+
+# Returns true if any of the keys in a chain exist.
+func has(key):
+  if key.find('.') == -1:
+    return _data.has(key)
+  
+  var keys = key.split('.')
+  var ret = _data
+  for _key in keys:
+    if not ret.has(_key):
+      return false
+    ret = ret[_key]
+    if typeof(ret) != TYPE_DICTIONARY:
+      return true
   # Should we add an event here to say data was retrieved?
   # If we make it here, then the data was found, so return true.
   return true
