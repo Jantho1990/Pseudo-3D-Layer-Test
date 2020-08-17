@@ -310,16 +310,21 @@ func validate_block_conditions(block):
     conditions = [block.conditions]
   
   for condition in conditions:
+    print(condition)
     condition = DialogueHandler.parse_text_story_data(condition)
     var error = expr.parse(condition, [])
     if error != OK:
       print('Condition "', condition, '" could not be parsed.')
-      return true
+      return false
     var result = expr.execute([], null, true)
     if not expr.has_execute_failed():
       if result == true:
+        print(condition, result)
         continue
       else:
         return false
+    else:
+      print('Execution of condition "', condition, '" failed.')
+      return false
   
   return true

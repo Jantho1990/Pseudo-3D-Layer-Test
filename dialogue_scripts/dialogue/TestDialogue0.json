@@ -30,7 +30,7 @@
     },
     "intro_condition1": {
       "type": "text",
-      "conditions": ["1 + 2 == 3", "{{test0}} == 'fish'"],
+      "conditions": ["1 + 2 == 3", "'{{test0}}' == 'fish'"],
       "character": "TestPlayer1",
       "text": "1 + 2 does equal 3, and {{test0}} does equal 'fish', so I can show myself.",
       "next": "intro_action1"
