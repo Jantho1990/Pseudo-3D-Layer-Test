@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://systems/dialogue_handler/renderers/DialogueBubbleRenderer/SpeechBubble.gd" type="Script" id=1]
+[ext_resource path="res://systems/dialogue_handler/renderers/DialogueBubbleRenderer/TextboxContainer.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CylinderMesh" id=2]
+height = 0.01
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_unshaded = true
+
+[sub_resource type="QuadMesh" id=5]
+resource_local_to_scene = true
+size = Vector2( 1.25, 1.25 )
+
+[sub_resource type="ViewportTexture" id=7]
+viewport_path = NodePath("TextViewport")
+
+[sub_resource type="SpatialMaterial" id=8]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+params_cull_mode = 2
+albedo_texture = SubResource( 7 )
+
+[node name="SpeechBubble" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Bubble" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 6 )
+
+[node name="TextQuad" type="MeshInstance" parent="Bubble"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.006, 0 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 8 )
+
+[node name="TextViewport" type="Viewport" parent="."]
+size = Vector2( 500, 500 )
+transparent_bg = true
+hdr = false
+usage = 0
+
+[node name="TextboxContainer" parent="TextViewport" instance=ExtResource( 2 )]
+
+[node name="DebugCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.96862 )
+current = true
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+visible = false
