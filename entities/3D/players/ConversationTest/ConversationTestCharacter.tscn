@@ -63,7 +63,7 @@ transform = Transform( 0.280764, 0, 0, 0, 0.904893, 0, 0, 0, 0.111314, 0, -0.056
 shape = SubResource( 1 )
 
 [node name="Camera" type="ClippedCamera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.92969 )
 current = true
 fov = 73.7
 near = 0.01

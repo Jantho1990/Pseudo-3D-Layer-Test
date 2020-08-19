@@ -34,7 +34,7 @@ mesh = SubResource( 5 )
 material/0 = SubResource( 8 )
 
 [node name="Bubble" type="MeshInstance" parent="TextQuad"]
-transform = Transform( 1.25, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 9.77526e-10, 0.006 )
+transform = Transform( 1.5, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.77526e-10, 0.006 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
@@ -47,6 +47,8 @@ disable_3d = true
 usage = 0
 
 [node name="TextboxContainer" parent="TextViewport" instance=ExtResource( 2 )]
+margin_right = 0.00012207
+margin_bottom = 6.10352e-05
 
 [node name="DebugCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.84416 )
