@@ -5,6 +5,7 @@ extends Control
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+const DELIMITERS = [' ', '/n']
 
 
 onready var TE = $VBoxContainer/HBoxContainer/TextEdit
@@ -31,22 +32,23 @@ func _ready():
 
 func _on_text_changed():
   RTL.bbcode_text = TE.text
+  var original_text = RTL.text
   # RTL.set_h_size_flags(SIZE_EXPAND_FILL)
   # RTL.set_v_size_flags(SIZE_EXPAND_FILL)
   L1.text = String(RTL.get_line_count())
   L2.text = String(RTL.get_visible_line_count())
   L3.text = String(RTL.get_content_height())
   L4.text = String(RTL.rect_size)
-  var split_text = split_and_keep_delimiters(RTL.text, [' ', char(10)])
+  var split_text = split_and_keep_delimiters(original_text, DELIMITERS)
   var font = RTL.get_font('normal_font')
   var calc_lines = calculate_lines(split_text, font, RTL.rect_size.x)
-  var raw_text = TE.text
-  raw_text = format_text_with_line_breaks(raw_text, font, RTL.rect_size.x)
-  RTL.bbcode_text = raw_text
+  var raw_text = original_text
+  # raw_text = format_text_with_line_breaks(raw_text, font, RTL.rect_size.x)
+  # RTL.bbcode_text = raw_text
   L5.text = String(split_text)
-  L6.text = String(split_text.size())
-  L7.text = String(calc_lines)
-  L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
+  L6.text = 'Split Text size: ' + String(split_text.size())
+  L7.text = 'Calculated lines: ' + String(calc_lines)
+  # L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
 
 
 ###
@@ -57,7 +59,7 @@ func _on_text_changed():
 func get_pixel_height_for_text(text : String, font : DynamicFont, container_width : int):
   var font_height = font.get_height()
 
-  var split_text = split_and_keep_delimiters(text, [' '])
+  var split_text = split_and_keep_delimiters(text, DELIMITERS)
 
   var line_count = calculate_lines(split_text, font, container_width)
 
@@ -78,12 +80,15 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
 
       while not finished:
         var index = parts[i].find(delimiter)
+        print('index -- ', index, delimiter, ' ))')
 
         if index > -1 and parts[i].length() > index + 1:
           var left_part = parts[i].substr(0, index + delimiter.length())
           var right_part = parts[i].substr(index + delimiter.length())
           parts[i] = left_part
           parts.insert(i + 1, right_part)
+          i += 1
+        elif i < parts.size() - 1:
           i += 1
         else:
           finished = true
@@ -111,7 +116,7 @@ func calculate_lines(split_text : Array, font : DynamicFont, container_width: in
     print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
 
     # If amount of pixels is more than one line can handle, go to next line.
-    if pixels_in_word > width_until_next_line:
+    if pixels_in_word > width_until_next_line or word.find('\n') > -1:
       total_lines += 1
 
       # Subtract word pixel length from next line.
@@ -136,7 +141,7 @@ func get_word_pixel_width(word : String, font : DynamicFont) -> int:
 
 func format_text_with_line_breaks(text : String, font: DynamicFont, container_width : int):
   # TODO: Make delimiters a global constant
-  var split_text = split_and_keep_delimiters(text, [' ', char(10)])
+  var split_text = split_and_keep_delimiters(text, DELIMITERS)
 
   # The final returned text
   var formatted_text = ''
