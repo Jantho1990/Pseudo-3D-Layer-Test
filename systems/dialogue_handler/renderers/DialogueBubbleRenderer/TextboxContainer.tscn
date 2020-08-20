@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://systems/dialogue_handler/renderers/DialogueBubbleRenderer/TextboxContainer.gd" type="Script" id=1]
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://fonts/tomorrow/Tomorrow-Medium.ttf"
@@ -12,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 860.0
 margin_bottom = 420.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -21,4 +24,5 @@ margin_right = 1500.0
 margin_bottom = 900.0
 custom_fonts/normal_font = SubResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_text = "I'd love to come out of my bubble, but I can't. Really. :("
 text = "I'd love to come out of my bubble, but I can't. Really. :("
