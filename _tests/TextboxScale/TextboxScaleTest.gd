@@ -51,7 +51,6 @@ func get_pixel_height_for_text(text : String, font : DynamicFont):
 
 func split_and_keep_delimiters(text : String, delimiters: Array):
   var parts = text.split('')
-  print(parts)
   
   if text.length() > 0:
     for delimiter in delimiters:
