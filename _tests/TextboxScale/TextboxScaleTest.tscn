@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://_tests/TextboxScale/TextboxScaleTest.gd" type="Script" id=1]
-[ext_resource path="res://fonts/adobe_source_san_pro_ttf/SourceSansPro-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://fonts/tomorrow/Tomorrow-Regular.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
@@ -49,8 +49,10 @@ margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
 bbcode_text = "TEXT"
-text = "TEXT"
+text = "TEXT
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -37,11 +37,12 @@ func _on_text_changed():
   L2.text = String(RTL.get_visible_line_count())
   L3.text = String(RTL.get_content_height())
   L4.text = String(RTL.rect_size)
-  var split_text = split_and_keep_delimiters(TE.text, [' '])
+  var split_text = split_and_keep_delimiters(RTL.text, [' ', char(10)])
   var font = RTL.get_font('normal_font')
   L5.text = String(split_text)
   L6.text = String(split_text.size())
   L7.text = String(calculate_lines(split_text, font, RTL.rect_size.x))
+  L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
 
 
 ###
@@ -103,7 +104,7 @@ func calculate_lines(split_text : Array, font : DynamicFont, container_width: in
   # Iterate through the split text and find out how many lines it will be split into
   for word in split_text:
     var pixels_in_word = get_word_pixel_width(word, font)
-    print('Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
+    print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
 
     # If amount of pixels is more than one line can handle, go to next line.
     if pixels_in_word > width_until_next_line:
