@@ -1,23 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://_tests/TextboxScale/TextboxScaleTest.gd" type="Script" id=1]
+[ext_resource path="res://fonts/adobe_source_san_pro_ttf/SourceSansPro-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
 
 [node name="TextboxScaleTest" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 320.0
-margin_right = 640.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_text = "TEXT"
-text = "TEXT"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -41,8 +33,7 @@ __meta__ = {
 }
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 170.0
-margin_right = 470.0
+margin_right = 300.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 300, 100 )
 text = "Enter text here"
@@ -51,10 +42,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+margin_left = 320.0
+margin_right = 640.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_text = "TEXT"
+text = "TEXT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 120.0
 margin_right = 640.0
-margin_bottom = 224.0
+margin_bottom = 260.0
 
 [node name="Label1" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_right = 640.0
@@ -89,4 +93,16 @@ text = "Stats"
 margin_top = 90.0
 margin_right = 640.0
 margin_bottom = 104.0
+text = "Stats"
+
+[node name="Label7" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 640.0
+margin_bottom = 122.0
+text = "Stats"
+
+[node name="Label8" type="Label" parent="VBoxContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 640.0
+margin_bottom = 140.0
 text = "Stats"

@@ -8,13 +8,15 @@ extends Control
 
 
 onready var TE = $VBoxContainer/HBoxContainer/TextEdit
-onready var RTL = $RichTextLabel
+onready var RTL = $VBoxContainer/HBoxContainer/RichTextLabel
 onready var L1 = $VBoxContainer/VBoxContainer/Label1
 onready var L2 = $VBoxContainer/VBoxContainer/Label2
 onready var L3 = $VBoxContainer/VBoxContainer/Label3
 onready var L4 = $VBoxContainer/VBoxContainer/Label4
 onready var L5 = $VBoxContainer/VBoxContainer/Label5
 onready var L6 = $VBoxContainer/VBoxContainer/Label6
+onready var L7 = $VBoxContainer/VBoxContainer/Label7
+onready var L8 = $VBoxContainer/VBoxContainer/Label8
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,8 +38,10 @@ func _on_text_changed():
   L3.text = String(RTL.get_content_height())
   L4.text = String(RTL.rect_size)
   var split_text = split_and_keep_delimiters(TE.text, [' '])
+  var font = RTL.get_font('normal_font')
   L5.text = String(split_text)
   L6.text = String(split_text.size())
+  L7.text = String(calculate_lines(split_text, font, RTL.rect_size.x))
 
 
 ###
@@ -45,11 +49,21 @@ func _on_text_changed():
 # https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
 ###
 
-func get_pixel_height_for_text(text : String, font : DynamicFont):
+func get_pixel_height_for_text(text : String, font : DynamicFont, container_width : int):
   var font_height = font.get_height()
 
+  var split_text = split_and_keep_delimiters(text, [' '])
 
-func split_and_keep_delimiters(text : String, delimiters: Array):
+  var line_count = calculate_lines(split_text, font, container_width)
+
+  var pixel_height = line_count * font_height
+
+  pixel_height += font.outline_size * line_count
+
+  return pixel_height
+
+
+func split_and_keep_delimiters(text : String, delimiters : Array):
   var parts = text.split('')
   
   if text.length() > 0:
@@ -70,3 +84,46 @@ func split_and_keep_delimiters(text : String, delimiters: Array):
           finished = true
   
   return parts
+
+
+func calculate_lines(split_text : Array, font : DynamicFont, container_width: int):
+  print('WIDTH: ', container_width)
+  # How many pixels until we need to wrap to next line
+  var width_until_next_line = container_width
+
+  # Keep track of last index
+  var last_index = split_text.size() - 1
+
+  # Keep track of current index
+  var index_ct = 0
+
+  # Keep track of total lines, starting with an assumed first line
+  var total_lines = 1
+
+  # Iterate through the split text and find out how many lines it will be split into
+  for word in split_text:
+    var pixels_in_word = get_word_pixel_width(word, font)
+    print('Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
+
+    # If amount of pixels is more than one line can handle, go to next line.
+    if pixels_in_word > width_until_next_line:
+      total_lines += 1
+
+      # Subtract word pixel length from next line.
+      width_until_next_line = container_width - pixels_in_word
+    elif pixels_in_word == width_until_next_line:
+      # Increment line counter if we aren't on the last line
+      if index_ct != last_index:
+        total_lines += 1
+      width_until_next_line -= pixels_in_word
+    else:
+      # Subtract word pixel length from next line.
+      width_until_next_line -= pixels_in_word
+    
+    index_ct += 1
+  
+  return total_lines
+
+
+func get_word_pixel_width(word : String, font : DynamicFont) -> int:
+  return int(font.get_string_size(word).x)
