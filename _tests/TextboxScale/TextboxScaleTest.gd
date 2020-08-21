@@ -18,6 +18,7 @@ onready var L5 = $VBoxContainer/VBoxContainer/Label5
 onready var L6 = $VBoxContainer/VBoxContainer/Label6
 onready var L7 = $VBoxContainer/VBoxContainer/Label7
 onready var L8 = $VBoxContainer/VBoxContainer/Label8
+onready var L9 = $VBoxContainer/VBoxContainer/Label9
 
 
 # Called when the node enters the scene tree for the first time.
@@ -49,6 +50,7 @@ func _on_text_changed():
   L6.text = 'Split Text size: ' + String(split_text.size())
   L7.text = 'Calculated lines: ' + String(calc_lines)
   L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
+  L9.text = 'Pixel Height: ' + String(get_pixel_height_for_text(RTL.text, font, RTL.rect_size.x))
 
 
 ###
