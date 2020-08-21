@@ -79,7 +79,6 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
     while not finished:
       for delimiter in delimiters:
         var index = parts[i].find(delimiter)
-        print('Part: ', parts[i], ', Index: ', index, ', Delimiter: ', String(delimiter.to_ascii()))
         if index > -1 and parts[i].length() > index + 1:
           var left_part = parts[i].substr(0, index + delimiter.length())
           var right_part = parts[i].substr(index + delimiter.length())
