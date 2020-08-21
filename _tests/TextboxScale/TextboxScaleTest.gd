@@ -39,7 +39,7 @@ func _on_text_changed():
   L2.text = String(RTL.get_visible_line_count())
   L3.text = String(RTL.get_content_height())
   L4.text = String(RTL.rect_size)
-  var split_text = split_and_keep_delimiters(original_text, DELIMITERS)
+  var split_text = split_and_keep_delimiters(TE.text, DELIMITERS)
   var font = RTL.get_font('normal_font')
   var calc_lines = calculate_lines(split_text, font, RTL.rect_size.x)
   var raw_text = original_text
@@ -74,24 +74,39 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
   var parts = text.split('')
   
   if text.length() > 0:
-    for delimiter in delimiters:
-      var finished = false
-      var i = 0
-
-      while not finished:
+    var finished = false
+    var i = 0
+    while not finished:
+      for delimiter in delimiters:
         var index = parts[i].find(delimiter)
-        print('index -- ', index, delimiter, ' ))')
-
         if index > -1 and parts[i].length() > index + 1:
           var left_part = parts[i].substr(0, index + delimiter.length())
           var right_part = parts[i].substr(index + delimiter.length())
           parts[i] = left_part
           parts.insert(i + 1, right_part)
-          i += 1
-        elif i < parts.size() - 1:
-          i += 1
-        else:
-          finished = true
+      if i == parts.size() - 1:
+        finished = true
+      else:
+        i += 1
+    
+    # for delimiter in delimiters:
+    #   var finished = false
+    #   var i = 0
+
+    #   while not finished:
+    #     var index = parts[i].find(delimiter)
+    #     print('index -- ', index, delimiter, ' ))')
+
+    #     if index > -1 and parts[i].length() > index + 1:
+    #       var left_part = parts[i].substr(0, index + delimiter.length())
+    #       var right_part = parts[i].substr(index + delimiter.length())
+    #       parts[i] = left_part
+    #       parts.insert(i + 1, right_part)
+    #       i += 1
+    #     elif i < parts.size() - 1:
+    #       i += 1
+    #     else:
+    #       finished = true
   
   return parts
 
