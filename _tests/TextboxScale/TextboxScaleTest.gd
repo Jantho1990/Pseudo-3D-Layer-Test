@@ -5,7 +5,7 @@ extends Control
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const DELIMITERS = [' ', '/n']
+const DELIMITERS = [' ', '\n']
 
 
 onready var TE = $VBoxContainer/HBoxContainer/TextEdit
@@ -79,6 +79,7 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
     while not finished:
       for delimiter in delimiters:
         var index = parts[i].find(delimiter)
+        print('Part: ', parts[i], ', Index: ', index, ', Delimiter: ', String(delimiter.to_ascii()))
         if index > -1 and parts[i].length() > index + 1:
           var left_part = parts[i].substr(0, index + delimiter.length())
           var right_part = parts[i].substr(index + delimiter.length())
@@ -88,31 +89,12 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
         finished = true
       else:
         i += 1
-    
-    # for delimiter in delimiters:
-    #   var finished = false
-    #   var i = 0
-
-    #   while not finished:
-    #     var index = parts[i].find(delimiter)
-    #     print('index -- ', index, delimiter, ' ))')
-
-    #     if index > -1 and parts[i].length() > index + 1:
-    #       var left_part = parts[i].substr(0, index + delimiter.length())
-    #       var right_part = parts[i].substr(index + delimiter.length())
-    #       parts[i] = left_part
-    #       parts.insert(i + 1, right_part)
-    #       i += 1
-    #     elif i < parts.size() - 1:
-    #       i += 1
-    #     else:
-    #       finished = true
   
   return parts
 
 
 func calculate_lines(split_text : Array, font : DynamicFont, container_width: int):
-  print('WIDTH: ', container_width)
+  # print('WIDTH: ', container_width)
   # How many pixels until we need to wrap to next line
   var width_until_next_line = container_width
 
@@ -128,7 +110,7 @@ func calculate_lines(split_text : Array, font : DynamicFont, container_width: in
   # Iterate through the split text and find out how many lines it will be split into
   for word in split_text:
     var pixels_in_word = get_word_pixel_width(word, font)
-    print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
+    # print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
 
     # If amount of pixels is more than one line can handle, go to next line.
     if pixels_in_word > width_until_next_line or word.find('\n') > -1:
@@ -176,7 +158,7 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
   # Iterate through the split text and find out how many lines it will be split into
   for word in split_text:
     var pixels_in_word = get_word_pixel_width(word, font)
-    print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
+    # print('Line count: ', total_lines, '. Next line:', width_until_next_line, ', Word: ', word, ' -- ', pixels_in_word, ' pixels wide')
 
     # If amount of pixels is more than one line can handle, go to next line.
     if pixels_in_word > width_until_next_line:
@@ -184,7 +166,7 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
 
       # Inject a line break, because the calculations are not quite accurate enough.
       # We just need to guarantee that the textbox shows a new line if it calculates it should.
-      word = char(10) + word
+      word = '\n' + word
 
       # Subtract word pixel length from next line.
       width_until_next_line = container_width - pixels_in_word
