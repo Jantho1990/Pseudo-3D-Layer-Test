@@ -188,6 +188,9 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
 
       # Subtract word pixel length from next line.
       width_until_next_line = container_width - pixels_in_word
+    elif word.find('\n') > -1:
+      total_lines += 1
+      width_until_next_line = container_width - pixels_in_word
     elif pixels_in_word == width_until_next_line:
       # Increment line counter if we aren't on the last line
       if index_ct != last_index:
