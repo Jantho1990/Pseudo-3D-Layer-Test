@@ -9,7 +9,7 @@ const DELIMITERS = [' ', '/n']
 
 
 onready var TE = $VBoxContainer/HBoxContainer/TextEdit
-onready var RTL = $VBoxContainer/HBoxContainer/RichTextLabel
+onready var RTL = $VBoxContainer/RichTextLabel
 onready var L1 = $VBoxContainer/VBoxContainer/Label1
 onready var L2 = $VBoxContainer/VBoxContainer/Label2
 onready var L3 = $VBoxContainer/VBoxContainer/Label3
@@ -39,16 +39,16 @@ func _on_text_changed():
   L2.text = String(RTL.get_visible_line_count())
   L3.text = String(RTL.get_content_height())
   L4.text = String(RTL.rect_size)
-  var split_text = split_and_keep_delimiters(TE.text, DELIMITERS)
+  var split_text = split_and_keep_delimiters(original_text, DELIMITERS)
   var font = RTL.get_font('normal_font')
   var calc_lines = calculate_lines(split_text, font, RTL.rect_size.x)
   var raw_text = original_text
-  # raw_text = format_text_with_line_breaks(raw_text, font, RTL.rect_size.x)
-  # RTL.bbcode_text = raw_text
+  raw_text = format_text_with_line_breaks(raw_text, font, RTL.rect_size.x)
+  RTL.bbcode_text = raw_text
   L5.text = String(split_text)
   L6.text = 'Split Text size: ' + String(split_text.size())
   L7.text = 'Calculated lines: ' + String(calc_lines)
-  # L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
+  L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
 
 
 ###
