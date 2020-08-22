@@ -1,13 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://_tests/SpeechBubbleScale/SpeechBubbleScaleTest.gd" type="Script" id=1]
-[ext_resource path="res://_tests/SpeechBubbleScale/TextEdit.tscn" type="PackedScene" id=2]
 
 [node name="SpeechBubbleScaleTest" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="TextEdit" parent="." instance=ExtResource( 2 )]
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.61805 )
 current = true
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="TextEdit" parent="Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -77.0
+margin_right = 172.0
