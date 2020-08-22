@@ -4,26 +4,47 @@ extends MarginContainer
 const DELIMITERS = [' ', '\n']
 const LINE_BREAK = '\n'
 
+export(String) var raw_text = ''
 export(int) var max_lines = 5
 export(int) var max_content_width = 360
 
-var total_lines = 0
-var longest_line_width = 0
+var old_raw_text = ''
+var processed_text = ''
+var content_height = 0.0
+var content_width = 0.0
+var content_size = Vector2(0.0, 0.0)
+var content_total_lines = 0
 
 onready var TextContent = $RichTextLabel
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  total_lines = calculate_total_lines()
+  update_text()
 
 
-func calculate_total_lines():
-  pass
+func _process(_delta):
+  if old_raw_text != raw_text:
+    update_text()
 
 
-func calculate_longest_line_width():
-  pass
+func get_longest_line_width(text : String, font: DynamicFont, container_width : int):
+  var lines_array = get_lines_array(processed_text, font, container_width)
+  
+  var longest_line_length = 0.0
+  for line in lines_array:
+    var line_length = get_line_pixel_width(line, font)
+    if line_length > longest_line_length: longest_line_length = line_length
+  
+  return longest_line_length
+
+
+func get_content_total_lines(text : String, font: DynamicFont, container_width : int):
+  var split_text = split_and_keep_delimiters(text, DELIMITERS)
+
+  var line_count = calculate_lines(split_text, font, container_width)
+
+  return line_count
 
 
 ###
@@ -156,3 +177,18 @@ func get_line_pixel_width(line : String, font: DynamicFont):
     total_pixel_width += get_word_pixel_width(word, font)
   
   return total_pixel_width
+
+
+func update_text():
+  old_raw_text = raw_text
+    
+  var font = TextContent.get_font('normal_font')
+  processed_text = format_text_with_line_breaks(raw_text, font, int(rect_size.x))
+  TextContent.bbcode_text = processed_text
+
+  content_total_lines = get_content_total_lines(processed_text, font, int(rect_size.x))
+  content_height = get_pixel_height_for_text(processed_text, font, int(rect_size.x))
+  content_size = Vector2(
+    get_longest_line_width(processed_text, font, int(rect_size.x)),
+    get_pixel_height_for_text(processed_text, font, int(rect_size.x))
+  )
