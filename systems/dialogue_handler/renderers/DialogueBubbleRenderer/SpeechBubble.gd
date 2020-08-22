@@ -1,7 +1,7 @@
 extends Spatial
 
 
-export(String) var raw_text = 'This is an example of dialogue bubble text.'
+export(String) var raw_text = 'This is an example of dialogue bubble text.' setget update_text
 
 
 onready var Bubble = $Bubble
@@ -14,8 +14,7 @@ func _ready():
   pass
   # Bubble.mesh.material.albedo_texture = TextViewport.get_texture()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-  if raw_text != TextboxContainer.raw_text:
-    TextboxContainer.raw_text = raw_text
+  
+func update_text(new_text):
+  if new_text != TextboxContainer.raw_text:
+    TextboxContainer.raw_text = new_text
