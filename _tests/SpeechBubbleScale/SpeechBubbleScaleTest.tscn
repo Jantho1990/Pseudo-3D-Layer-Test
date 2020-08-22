@@ -27,5 +27,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="L1" type="Label" parent="Control/HBoxContainer"]
+margin_top = 13.0
+margin_right = 88.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Content Size: "
+
+[node name="L2" type="Label" parent="Control/HBoxContainer"]
+margin_left = 108.0
+margin_top = 13.0
+margin_right = 185.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Lines: "
+
 [node name="SpeechBubble" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.93231 )
