@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. Here is some dummy text. "
+wrap_enabled = true
