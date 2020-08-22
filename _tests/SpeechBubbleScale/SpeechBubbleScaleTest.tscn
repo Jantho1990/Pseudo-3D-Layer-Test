@@ -52,4 +52,4 @@ text = "Total Lines: "
 
 [node name="SpeechBubble" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.93231 )
-content_padding = Vector2( 0, 0 )
+content_padding = Vector2( 50, 0 )

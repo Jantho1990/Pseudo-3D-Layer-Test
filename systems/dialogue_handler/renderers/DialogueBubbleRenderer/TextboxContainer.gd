@@ -179,11 +179,11 @@ func update_text(new_text : String):
   raw_text = new_text
     
   var font = TextContent.get_font('normal_font')
-  processed_text = format_text_with_line_breaks(raw_text, font, int(rect_size.x))
+  processed_text = format_text_with_line_breaks(raw_text, font, int(max_content_width))
   TextContent.bbcode_text = processed_text
 
-  content_total_lines = get_content_total_lines(processed_text, font, int(rect_size.x))
+  content_total_lines = get_content_total_lines(processed_text, font, int(max_content_width))
   content_size = Vector2(
-    get_longest_line_width(processed_text, font, int(rect_size.x)),
-    get_pixel_height_for_text(processed_text, font, int(rect_size.x))
+    get_longest_line_width(processed_text, font, int(max_content_width)),
+    get_pixel_height_for_text(processed_text, font, int(max_content_width))
   )
