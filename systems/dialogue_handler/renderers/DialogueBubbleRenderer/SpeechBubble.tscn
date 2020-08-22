@@ -39,7 +39,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
 [node name="TextViewport" type="Viewport" parent="."]
-size = Vector2( 1500, 900 )
+size = Vector2( 500, 300 )
 transparent_bg = true
 msaa = 4
 hdr = false
