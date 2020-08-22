@@ -33,14 +33,15 @@ transform = Transform( 1, 0, 0, 0, -1, 2.06632e-07, 0, -2.06632e-07, -1, 0, -2.6
 mesh = SubResource( 5 )
 material/0 = SubResource( 8 )
 
-[node name="Bubble" type="MeshInstance" parent="TextQuad"]
+[node name="BubbleContainer" type="Spatial" parent="TextQuad"]
+
+[node name="Bubble" type="MeshInstance" parent="TextQuad/BubbleContainer"]
 transform = Transform( 1.5, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.77526e-10, 0.006 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 6 )
 
 [node name="TextViewport" type="Viewport" parent="."]
 size = Vector2( 500, 300 )
-transparent_bg = true
 msaa = 4
 hdr = false
 disable_3d = true

@@ -9,8 +9,6 @@ export(int) var max_lines = 5
 export(int) var max_content_width = 360
 
 var processed_text = ''
-var content_height = 0.0
-var content_width = 0.0
 var content_size = Vector2(0.0, 0.0)
 var content_total_lines = 0
 
@@ -23,7 +21,7 @@ func _ready():
 
 
 func get_longest_line_width(text : String, font: DynamicFont, container_width : int):
-  var lines_array = get_lines_array(processed_text, font, container_width)
+  var lines_array = get_lines_array(text, font, container_width)
   
   var longest_line_length = 0.0
   for line in lines_array:
@@ -173,6 +171,10 @@ func get_line_pixel_width(line : String, font: DynamicFont):
   return total_pixel_width
 
 
+func update_size(new_size : Vector2):
+  rect_size = new_size
+
+
 func update_text(new_text : String):
   raw_text = new_text
     
@@ -181,7 +183,6 @@ func update_text(new_text : String):
   TextContent.bbcode_text = processed_text
 
   content_total_lines = get_content_total_lines(processed_text, font, int(rect_size.x))
-  content_height = get_pixel_height_for_text(processed_text, font, int(rect_size.x))
   content_size = Vector2(
     get_longest_line_width(processed_text, font, int(rect_size.x)),
     get_pixel_height_for_text(processed_text, font, int(rect_size.x))
