@@ -19,6 +19,7 @@ onready var L6 = $VBoxContainer/VBoxContainer/Label6
 onready var L7 = $VBoxContainer/VBoxContainer/Label7
 onready var L8 = $VBoxContainer/VBoxContainer/Label8
 onready var L9 = $VBoxContainer/VBoxContainer/Label9
+onready var L10 = $VBoxContainer/VBoxContainer/Label10
 
 
 # Called when the node enters the scene tree for the first time.
@@ -51,6 +52,7 @@ func _on_text_changed():
   L7.text = 'Calculated lines: ' + String(calc_lines)
   L8.text = String(font.get_wordwrap_string_size(RTL.text, RTL.rect_size.x))
   L9.text = 'Pixel Height: ' + String(get_pixel_height_for_text(RTL.text, font, RTL.rect_size.x))
+  L10.text = 'First line width: ' + String(get_line_pixel_width(get_lines_array(raw_text, font, RTL.rect_size.x)[0], font))
 
 
 ###
@@ -187,3 +189,17 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
     formatted_text += word
   
   return formatted_text
+
+func get_lines_array(text : String, font: DynamicFont, container_width : int):
+  var formatted_text = format_text_with_line_breaks(text, font, container_width)
+  return formatted_text.split('\n')
+
+func get_line_pixel_width(line : String, font: DynamicFont):
+  var split_text = split_and_keep_delimiters(line, DELIMITERS)
+  
+  var total_pixel_width = 0
+  
+  for word in split_text:
+    total_pixel_width += get_word_pixel_width(word, font)
+  
+  return total_pixel_width
