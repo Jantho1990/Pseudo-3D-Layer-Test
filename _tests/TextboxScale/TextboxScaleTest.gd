@@ -56,7 +56,7 @@ func _on_text_changed():
 
 
 ###
-# The following are converted from the C++ gist posted by Pilvinen
+# The following are inspired by and converted from the C++ gist posted by Pilvinen
 # https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
 ###
 
