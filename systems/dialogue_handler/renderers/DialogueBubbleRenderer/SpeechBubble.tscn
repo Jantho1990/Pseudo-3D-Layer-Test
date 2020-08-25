@@ -27,6 +27,7 @@ flags_unshaded = true
 
 [node name="SpeechBubble" type="Spatial"]
 script = ExtResource( 1 )
+raw_text = "This is one line."
 
 [node name="TextQuad" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1, 2.06632e-07, 0, -2.06632e-07, -1, 0, -2.62268e-10, 0.006 )

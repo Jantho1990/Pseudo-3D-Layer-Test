@@ -17,8 +17,10 @@ onready var TextboxContainer = $TextViewport/TextboxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  # breakpoint
   TextboxContainer.max_lines = max_lines
   TextboxContainer.max_content_width = max_content_width
+  # update_text(raw_text)
   # Bubble.mesh.material.albedo_texture = TextViewport.get_texture()
 
   
@@ -46,6 +48,12 @@ func update_size(new_size):
 
 
 func update_text(new_text):
+  # If a custom value was set, then this runs before ready,
+  # so we need to wait until the node is ready before updating the value.
+  if not TextboxContainer:
+    yield(self, 'ready')
+  
   if new_text != TextboxContainer.raw_text:
     TextboxContainer.raw_text = new_text
     update_bubble_dimensions(TextboxContainer.content_size)
+  return new_text
