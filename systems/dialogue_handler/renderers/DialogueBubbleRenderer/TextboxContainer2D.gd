@@ -12,19 +12,32 @@ var processed_text = ''
 var content_size = Vector2(0.0, 0.0)
 var content_total_lines = 0
 
-var border
+var border = {
+  "left": 0,
+  "top": 0,
+  "right": 0,
+  "bottom": 0
+}
 
-onready var TextContent = $RichTextLabel
+onready var TextContainer = $MarginContainer
+onready var TextContent = $MarginContainer/RichTextLabel
 # onready var Theme = theme.custom_styles
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  if not TextContent.get_stylebox('normal') is StyleBoxEmpty:
+    border = {
+      "left": TextContent.get_stylebox('normal').border_width_left,
+      "top": TextContent.get_stylebox('normal').border_width_top,
+      "right": TextContent.get_stylebox('normal').border_width_right,
+      "bottom": TextContent.get_stylebox('normal').border_width_bottom
+    }
   border = {
-    "left": TextContent.get_stylebox('normal').border_width_left,
-    "top": TextContent.get_stylebox('normal').border_width_top,
-    "right": TextContent.get_stylebox('normal').border_width_right,
-    "bottom": TextContent.get_stylebox('normal').border_width_bottom
+    "left": $MarginContainer.get('custom_constants/margin_left'),
+    "top": $MarginContainer.get('custom_constants/margin_top'),
+    "right": $MarginContainer.get('custom_constants/margin_right'),
+    "bottom": $MarginContainer.get('custom_constants/margin_bottom')
   }
   update_text(raw_text)
 
@@ -139,7 +152,7 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
   # Shrink container width by the size of the TextContent's border,
   # since that cuts in to our available width.
   container_width = container_width - border.left - border.right
-  
+
   # TODO: Make delimiters a global constant
   var split_text = split_and_keep_delimiters(text, DELIMITERS)
 
@@ -201,5 +214,5 @@ func update_text(new_text : String):
   content_total_lines = get_content_total_lines(processed_text, font, int(max_content_width))
   content_size = Vector2(
     get_longest_line_width(processed_text, font, int(max_content_width)),
-    get_pixel_height_for_text(processed_text, font, int(max_content_width))
+    get_pixel_height_for_text(processed_text, font, int(max_content_width)) + border.top + border.bottom
   )

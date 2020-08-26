@@ -2,11 +2,12 @@
 
 [ext_resource path="res://systems/dialogue_handler/renderers/DialogueBubbleRenderer/TextboxContainer2D.gd" type="Script" id=1]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
 border_width_left = 20
 border_width_top = 20
 border_width_right = 20
+border_width_bottom = 20
 border_color = Color( 1, 1, 1, 1 )
 corner_radius_top_left = 50
 corner_radius_top_right = 50
@@ -30,13 +31,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Panel" type="Panel" parent="."]
 margin_right = 500.0
 margin_bottom = 300.0
-custom_styles/normal = SubResource( 1 )
+custom_styles/panel = SubResource( 4 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 500.0
+margin_bottom = 300.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 480.0
+margin_bottom = 280.0
 custom_fonts/normal_font = SubResource( 3 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "One line."
 text = "One line."
 scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

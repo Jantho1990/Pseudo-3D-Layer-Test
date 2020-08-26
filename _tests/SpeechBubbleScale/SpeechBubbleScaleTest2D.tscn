@@ -51,3 +51,4 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Total Lines: "
 
 [node name="SpeechBubble2D" parent="." instance=ExtResource( 2 )]
+content_padding = Vector2( 40, 0 )
