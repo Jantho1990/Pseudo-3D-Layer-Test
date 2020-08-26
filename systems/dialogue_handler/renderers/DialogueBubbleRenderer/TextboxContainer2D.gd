@@ -12,11 +12,20 @@ var processed_text = ''
 var content_size = Vector2(0.0, 0.0)
 var content_total_lines = 0
 
+var border
+
 onready var TextContent = $RichTextLabel
+# onready var Theme = theme.custom_styles
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  border = {
+    "left": TextContent.get_stylebox('normal').border_width_left,
+    "top": TextContent.get_stylebox('normal').border_width_top,
+    "right": TextContent.get_stylebox('normal').border_width_right,
+    "bottom": TextContent.get_stylebox('normal').border_width_bottom
+  }
   update_text(raw_text)
 
 
@@ -81,7 +90,10 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
 
 
 func calculate_lines(split_text : Array, font : DynamicFont, container_width: int):
-  # print('WIDTH: ', container_width)
+  # Shrink container width by the size of the TextContent's border,
+  # since that cuts in to our available width.
+  container_width = container_width - border.left - border.right
+
   # How many pixels until we need to wrap to next line
   var width_until_next_line = container_width
 
@@ -124,6 +136,10 @@ func get_word_pixel_width(word : String, font : DynamicFont) -> int:
 
 
 func format_text_with_line_breaks(text : String, font: DynamicFont, container_width : int):
+  # Shrink container width by the size of the TextContent's border,
+  # since that cuts in to our available width.
+  container_width = container_width - border.left - border.right
+  
   # TODO: Make delimiters a global constant
   var split_text = split_and_keep_delimiters(text, DELIMITERS)
 
