@@ -9,7 +9,6 @@ export(float) var max_content_width = 500 # The maximum width the content is all
 
 var mesh_scale = 100.0 # This determines how much to scale the viewport sizes based on the mesh size.
 
-onready var Bubble = $TextQuad/BubbleContainer
 onready var TextQuad = $TextQuad
 onready var TextViewport = $TextViewport
 onready var TextboxContainer = $TextViewport/TextboxContainer

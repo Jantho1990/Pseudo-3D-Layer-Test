@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://systems/dialogue_handler/renderers/DialogueBubbleRenderer/TextboxContainer2D.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://fonts/tomorrow/Tomorrow-Medium.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 46
+font_data = SubResource( 2 )
+
+[node name="TextboxContainer2D" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -140.0
+margin_bottom = -180.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 500.0
+margin_bottom = 300.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "One line."
+text = "One line."
+scroll_active = false
