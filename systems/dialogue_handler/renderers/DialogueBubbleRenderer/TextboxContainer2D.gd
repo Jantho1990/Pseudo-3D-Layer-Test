@@ -26,13 +26,6 @@ onready var TextContent = $MarginContainer/RichTextLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  if not TextContent.get_stylebox('normal') is StyleBoxEmpty:
-    border = {
-      "left": TextContent.get_stylebox('normal').border_width_left,
-      "top": TextContent.get_stylebox('normal').border_width_top,
-      "right": TextContent.get_stylebox('normal').border_width_right,
-      "bottom": TextContent.get_stylebox('normal').border_width_bottom
-    }
   border = {
     "left": $MarginContainer.get('custom_constants/margin_left'),
     "top": $MarginContainer.get('custom_constants/margin_top'),
