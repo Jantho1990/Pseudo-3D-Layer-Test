@@ -1,21 +1,28 @@
 extends MarginContainer
 
 
-const DELIMITERS = [' ', '\n']
-const LINE_BREAK = '\n'
+###
+# Word pixel length and line calculations inspired by
+# and converted from this C++ gist posted by Pilvinen:
+# https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
+###
 
-export(String) var raw_text = '' setget update_text
-export(int) var max_lines = 5
-export(int) var max_content_width = 360
+const DELIMITERS = [' ', '\n'] # Used when detecting delimiters in the raw_text.
+const LINE_BREAK = '\n' # When inserting line breaks, use this character.
+
+export(String) var raw_text = '' setget update_text # The text to display in the textbox.
+export(int) var max_lines = 5 # How many lines of text to allow to be displayed.
+export(int) var max_content_width = 360 # The maximum size of the textbox.
+export(bool) var use_typewriter = true # Renders text updates using a typewriter effect.
 export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
-export(bool) var use_typewriter = true
 
-var processed_text = ''
-var content_size = Vector2(0.0, 0.0)
-var content_total_lines = 0
-var typing = false # Is typewriter effect currently typing?
+var content_size = Vector2(0.0, 0.0) # The size of the textbox, as shown to external components.
+var content_total_lines = 0 # The total lines of text.
+var processed_text = '' # Processed raw text.
 var step_content_percent_visible = 0.0 # How much of the text in the content box is currently visible.
+var typing = false # Is typewriter effect currently typing?
 
+# Used with word and line width calculations.
 var border = {
   "left": 0,
   "top": 0,
@@ -26,7 +33,6 @@ var border = {
 onready var TextContainer = $MarginContainer
 onready var TextContent = $MarginContainer/RichTextLabel
 onready var TypewriterTimer = $TypewriterTimer
-# onready var Theme = theme.custom_styles
 
 
 # Called when the node enters the scene tree for the first time.
@@ -130,6 +136,7 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
   return formatted_text
 
 
+# Get the number of lines in a given text within given container width.
 func get_content_total_lines(text : String, font: DynamicFont, container_width : int):
   var split_text = split_and_keep_delimiters(text, DELIMITERS)
 
@@ -138,6 +145,7 @@ func get_content_total_lines(text : String, font: DynamicFont, container_width :
   return line_count
 
 
+# Get the pixel width of a line.
 func get_line_pixel_width(line : String, font: DynamicFont):
   var split_text = split_and_keep_delimiters(line, DELIMITERS)
   
@@ -155,6 +163,7 @@ func get_lines_array(text : String, font: DynamicFont, container_width : int):
   return formatted_text.split(LINE_BREAK)
 
 
+# Get the line with the longest pixel width.
 func get_longest_line_width(text : String, font: DynamicFont, container_width : int):
   var lines_array = get_lines_array(text, font, container_width)
   
@@ -166,11 +175,7 @@ func get_longest_line_width(text : String, font: DynamicFont, container_width : 
   return longest_line_length
 
 
-###
-# The following are inspired by and converted from the C++ gist posted by Pilvinen
-# https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
-###
-
+# Get the pixel height of a given string of text.
 func get_pixel_height_for_text(text : String, font : DynamicFont, container_width : int):
   var font_height = font.get_height()
 
@@ -185,10 +190,12 @@ func get_pixel_height_for_text(text : String, font : DynamicFont, container_widt
   return pixel_height
 
 
+# Get the pixel width for a given word in specified font.
 func get_word_pixel_width(word : String, font : DynamicFont) -> int:
   return int(font.get_string_size(word).x)
 
 
+# Renders text with the typewriter effect.
 func render_typewriter():
   var text_length = processed_text.length()
   if text_length <= 0: return
@@ -199,6 +206,7 @@ func render_typewriter():
   TypewriterTimer.start(step_next_letter)
 
 
+# Split text by the delimiters, but without removing the delimiter characters.
 func split_and_keep_delimiters(text : String, delimiters : Array):
   var parts = text.split('')
   
@@ -221,10 +229,12 @@ func split_and_keep_delimiters(text : String, delimiters : Array):
   return parts
 
 
+# Called externally when updating the textbox size.
 func update_size(new_size : Vector2):
   rect_size = new_size
 
 
+# Run whenever the speech bubble's text is changed.
 func update_text(new_text : String):
   raw_text = new_text
     
