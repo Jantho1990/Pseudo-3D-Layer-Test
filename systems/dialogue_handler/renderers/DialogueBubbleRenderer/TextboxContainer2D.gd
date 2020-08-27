@@ -35,66 +35,7 @@ func _ready():
   update_text(raw_text)
 
 
-func get_longest_line_width(text : String, font: DynamicFont, container_width : int):
-  var lines_array = get_lines_array(text, font, container_width)
-  
-  var longest_line_length = 0.0
-  for line in lines_array:
-    var line_length = get_line_pixel_width(line, font)
-    if line_length > longest_line_length: longest_line_length = line_length
-  
-  return longest_line_length
-
-
-func get_content_total_lines(text : String, font: DynamicFont, container_width : int):
-  var split_text = split_and_keep_delimiters(text, DELIMITERS)
-
-  var line_count = calculate_lines(split_text, font, container_width)
-
-  return line_count
-
-
-###
-# The following are inspired by and converted from the C++ gist posted by Pilvinen
-# https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
-###
-
-func get_pixel_height_for_text(text : String, font : DynamicFont, container_width : int):
-  var font_height = font.get_height()
-
-  var split_text = split_and_keep_delimiters(text, DELIMITERS)
-
-  var line_count = calculate_lines(split_text, font, container_width)
-
-  var pixel_height = line_count * font_height
-
-  pixel_height += font.outline_size * line_count
-
-  return pixel_height
-
-
-func split_and_keep_delimiters(text : String, delimiters : Array):
-  var parts = text.split('')
-  
-  if text.length() > 0:
-    var finished = false
-    var i = 0
-    while not finished:
-      for delimiter in delimiters:
-        var index = parts[i].find(delimiter)
-        if index > -1 and parts[i].length() > index + 1:
-          var left_part = parts[i].substr(0, index + delimiter.length())
-          var right_part = parts[i].substr(index + delimiter.length())
-          parts[i] = left_part
-          parts.insert(i + 1, right_part)
-      if i == parts.size() - 1:
-        finished = true
-      else:
-        i += 1
-  
-  return parts
-
-
+# Figure out how many lines an array of processed text has within given container width.
 func calculate_lines(split_text : Array, font : DynamicFont, container_width: int):
   # Shrink container width by the size of the TextContent's border,
   # since that cuts in to our available width.
@@ -137,10 +78,7 @@ func calculate_lines(split_text : Array, font : DynamicFont, container_width: in
   return total_lines
 
 
-func get_word_pixel_width(word : String, font : DynamicFont) -> int:
-  return int(font.get_string_size(word).x)
-
-
+# Format a text string, inserting line breaks where the line length would exceed container width.
 func format_text_with_line_breaks(text : String, font: DynamicFont, container_width : int):
   # Shrink container width by the size of the TextContent's border,
   # since that cuts in to our available width.
@@ -177,9 +115,12 @@ func format_text_with_line_breaks(text : String, font: DynamicFont, container_wi
   return formatted_text
 
 
-func get_lines_array(text : String, font: DynamicFont, container_width : int):
-  var formatted_text = format_text_with_line_breaks(text, font, container_width)
-  return formatted_text.split(LINE_BREAK)
+func get_content_total_lines(text : String, font: DynamicFont, container_width : int):
+  var split_text = split_and_keep_delimiters(text, DELIMITERS)
+
+  var line_count = calculate_lines(split_text, font, container_width)
+
+  return line_count
 
 
 func get_line_pixel_width(line : String, font: DynamicFont):
@@ -191,6 +132,68 @@ func get_line_pixel_width(line : String, font: DynamicFont):
     total_pixel_width += get_word_pixel_width(word, font)
   
   return total_pixel_width
+
+
+# Return each line for a text string in an array.
+func get_lines_array(text : String, font: DynamicFont, container_width : int):
+  var formatted_text = format_text_with_line_breaks(text, font, container_width)
+  return formatted_text.split(LINE_BREAK)
+
+
+func get_longest_line_width(text : String, font: DynamicFont, container_width : int):
+  var lines_array = get_lines_array(text, font, container_width)
+  
+  var longest_line_length = 0.0
+  for line in lines_array:
+    var line_length = get_line_pixel_width(line, font)
+    if line_length > longest_line_length: longest_line_length = line_length
+  
+  return longest_line_length
+
+
+###
+# The following are inspired by and converted from the C++ gist posted by Pilvinen
+# https://gist.github.com/Pilvinen/c3a858e2fabe87f3ead967dd15a25d98
+###
+
+func get_pixel_height_for_text(text : String, font : DynamicFont, container_width : int):
+  var font_height = font.get_height()
+
+  var split_text = split_and_keep_delimiters(text, DELIMITERS)
+
+  var line_count = calculate_lines(split_text, font, container_width)
+
+  var pixel_height = line_count * font_height
+
+  pixel_height += font.outline_size * line_count
+
+  return pixel_height
+
+
+func get_word_pixel_width(word : String, font : DynamicFont) -> int:
+  return int(font.get_string_size(word).x)
+
+
+func split_and_keep_delimiters(text : String, delimiters : Array):
+  var parts = text.split('')
+  
+  if text.length() > 0:
+    var finished = false
+    var i = 0
+    while not finished:
+      for delimiter in delimiters:
+        var index = parts[i].find(delimiter)
+        if index > -1 and parts[i].length() > index + 1:
+          var left_part = parts[i].substr(0, index + delimiter.length())
+          var right_part = parts[i].substr(index + delimiter.length())
+          parts[i] = left_part
+          parts.insert(i + 1, right_part)
+      if i == parts.size() - 1:
+        finished = true
+      else:
+        i += 1
+  
+  return parts
 
 
 func update_size(new_size : Vector2):
