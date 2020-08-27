@@ -7,10 +7,14 @@ const LINE_BREAK = '\n'
 export(String) var raw_text = '' setget update_text
 export(int) var max_lines = 5
 export(int) var max_content_width = 360
+export(float) var step_next_letter = 0.1 # How long to wait before advancing to the next letter.
+export(bool) var use_typewriter = true
 
 var processed_text = ''
 var content_size = Vector2(0.0, 0.0)
 var content_total_lines = 0
+var typing = false # Is typewriter effect currently typing?
+var step_content_percent_visible = 0.0 # How much of the text in the content box is currently visible.
 
 var border = {
   "left": 0,
@@ -21,11 +25,13 @@ var border = {
 
 onready var TextContainer = $MarginContainer
 onready var TextContent = $MarginContainer/RichTextLabel
+onready var TypewriterTimer = $TypewriterTimer
 # onready var Theme = theme.custom_styles
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+  TypewriterTimer.connect('timeout', self, '_on_TypewriterTimer_timeout')
   border = {
     "left": $MarginContainer.get('custom_constants/margin_left'),
     "top": $MarginContainer.get('custom_constants/margin_top'),
@@ -33,6 +39,15 @@ func _ready():
     "bottom": $MarginContainer.get('custom_constants/margin_bottom')
   }
   update_text(raw_text)
+
+
+func _on_TypewriterTimer_timeout():
+  if TextContent.percent_visible < 1:
+    TextContent.percent_visible += step_content_percent_visible
+    TypewriterTimer.start(step_next_letter)
+  else:
+    TypewriterTimer.stop() # Otherwise the timer doesn't seem to stop. /shrug
+    typing = false
 
 
 # Figure out how many lines an array of processed text has within given container width.
@@ -174,6 +189,16 @@ func get_word_pixel_width(word : String, font : DynamicFont) -> int:
   return int(font.get_string_size(word).x)
 
 
+func render_typewriter():
+  var text_length = processed_text.length()
+  if text_length <= 0: return
+  
+  step_content_percent_visible = 1 / float(text_length)
+  typing = true
+  TextContent.percent_visible = 0
+  TypewriterTimer.start(step_next_letter)
+
+
 func split_and_keep_delimiters(text : String, delimiters : Array):
   var parts = text.split('')
   
@@ -212,3 +237,6 @@ func update_text(new_text : String):
     get_longest_line_width(processed_text, font, int(max_content_width)),
     get_pixel_height_for_text(processed_text, font, int(max_content_width)) + border.top + border.bottom
   )
+
+  if use_typewriter:
+    render_typewriter()
