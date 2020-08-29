@@ -21,3 +21,4 @@ script = ExtResource( 1 )
 [node name="Curve1" type="ImmediateGeometry" parent="."]
 script = ExtResource( 2 )
 curve = SubResource( 1 )
+primitive_type = 3

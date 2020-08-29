@@ -6,10 +6,10 @@
 [node name="Spatial" type="Spatial"]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5476 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.5381 )
 
 [node name="Orb" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 5, 0 )
 script = ExtResource( 2 )
 
 [node name="Trail3D" type="ImmediateGeometry" parent="Orb"]
@@ -17,4 +17,5 @@ script = ExtResource( 1 )
 length = 20.0
 max_radius = 0.25
 density_lengthwise = 50
+density_around = 2
 shape = 1.0

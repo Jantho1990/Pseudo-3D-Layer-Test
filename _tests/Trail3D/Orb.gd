@@ -16,7 +16,13 @@ func _ready():
 #  pass
 
 func _physics_process(delta):
-  rotate_around(Vector3(0, 0, 0), Vector3(0, 0, 1), 0.01)
+  # var axis = math.randOneFrom([Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)])
+  var axis = Vector3(0, 0, 1)
+  rotate_around(
+    Vector3(0, 0, 0),
+    axis,
+    0.01
+  )
 
 
 # Taken from https://godotengine.org/qa/45609/how-you-rotate-spatial-node-around-axis-given-point-in-space

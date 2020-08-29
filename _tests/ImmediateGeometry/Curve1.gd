@@ -1,7 +1,17 @@
 extends ImmediateGeometry
 
+enum primitive_types {
+  PRIMITVE_POINTS,
+  PRIMITIVE_LINES,
+  PRIMITIVE_LINE_STRIP,
+  PRIMITIVE_LINE_LOOP,
+  PRIMITIVE_TRIANGLES,
+  PRIMITIVE_TRIANGLE_STRIP,
+  PRIMITIVE_TRIANGLE_FAN
+}
 
 export(Curve3D) var curve = Curve3D.new()
+export(primitive_types) var primitive_type = primitive_types.PRIMITIVE_LINE_STRIP
 
 var path_points = [
   [Vector3(-2, 0, 0)],
@@ -23,7 +33,7 @@ func _process(delta):
 
 func render_curve():
   clear()
-  begin(Mesh.PRIMITIVE_LINE_STRIP)
+  begin(primitive_type)
   
   for point in curve.get_baked_points():
     # print(point, typeof(point))
