@@ -13,22 +13,26 @@ enum primitive_types {
 export(Curve3D) var curve = Curve3D.new()
 export(primitive_types) var primitive_type = primitive_types.PRIMITIVE_LINE_STRIP
 
-var path_points = [
-  [Vector3(-2, 0, 0)],
-  [Vector3(0, -1, 0)],
-  [Vector3(2, 0, 0)]
-]
+var current_path
 
+export(Array) var path_points = [
+  [Vector3(-2, 0, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)],
+  [Vector3(0, -1, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)],
+  [Vector3(2, 0, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)]
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
   for point in path_points:
-    curve.add_point(point[0])
+    curve.add_point(point[0], point[1], point[2])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
- render_curve()
+  if current_path != path_points:
+    current_path = path_points
+    update_curve(current_path)
+  render_curve()
 
 
 func render_curve():
@@ -40,3 +44,9 @@ func render_curve():
     add_vertex(point)
   
   end()
+
+
+func update_curve(path):
+  curve.clear_points()
+  for point in path:
+    curve.add_point(point[0], point[1], point[2])
