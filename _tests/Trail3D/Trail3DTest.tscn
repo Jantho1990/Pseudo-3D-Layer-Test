@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot-next/3d/trail_3d.gd" type="Script" id=1]
+[ext_resource path="res://_tests/Trail3D/Orb.gd" type="Script" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21.5476 )
+
+[node name="Orb" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+script = ExtResource( 2 )
+
+[node name="Trail3D" type="ImmediateGeometry" parent="Orb"]
+script = ExtResource( 1 )
+length = 20.0
+max_radius = 0.25
+density_lengthwise = 50
+shape = 1.0
