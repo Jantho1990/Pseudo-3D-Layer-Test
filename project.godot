@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/DataStore.gd"
 }, {
+"base": "Camera",
+"class": "DebugCamera3D",
+"language": "GDScript",
+"path": "res://cameras/DebugCamera/DebugCamera3D.gd"
+}, {
 "base": "Label",
 "class": "DebugLabel",
 "language": "GDScript",
@@ -371,6 +376,7 @@ _global_script_class_icons={
 "CreateConstruct": "",
 "Cycle": "res://addons/godot-next/icons/icon_cycle.svg",
 "DataStore": "",
+"DebugCamera3D": "",
 "DebugLabel": "",
 "DecoyConstruct": "",
 "DecoyConstructContainer": "",
