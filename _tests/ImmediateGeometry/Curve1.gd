@@ -16,9 +16,11 @@ export(primitive_types) var primitive_type = primitive_types.PRIMITIVE_LINE_STRI
 var current_path
 
 export(Array) var path_points = [
-  [Vector3(-2, 0, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)],
-  [Vector3(0, -1, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)],
-  [Vector3(2, 0, 0), Vector3(0, 2, 0), Vector3(0, -2, 0)]
+  [Vector3(-2, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)],
+  [Vector3(0, -1, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)],
+  [Vector3(2, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)],
+  [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)],
+  [Vector3(-2, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)],
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -33,6 +35,7 @@ func _process(delta):
     current_path = path_points
     update_curve(current_path)
   render_curve()
+  # rotation.y += 0.01
 
 
 func render_curve():
