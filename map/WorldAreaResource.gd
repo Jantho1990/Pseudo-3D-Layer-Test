@@ -6,7 +6,7 @@ var chunk_area_ids = []
 
 # Saves a chunk area.
 func save_chunk_area(new_chunk_area : Node):
-  var ps = PackedScene.new()
+  var packed_scene = PackedScene.new()
   var chunk_exists = false
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == new_chunk_area.chunk_id:
@@ -17,11 +17,13 @@ func save_chunk_area(new_chunk_area : Node):
       chunk_areas.insert(new_chunk_area.chunk_id, new_chunk_area)
       chunk_areas.remove(new_chunk_area.chunk_id + 1)
   else:
-    chunk_areas.push_back({
-      'chunk_area': ps.pack(new_chunk_area),
-      'chunk_id': new_chunk_area.chunk_id,
-      'is_loaded': false
-    })
+    var result = packed_scene.pack(new_chunk_area)
+    if result == OK:
+      chunk_areas.push_back({
+        'chunk_area': packed_scene,
+        'chunk_id': new_chunk_area.chunk_id,
+        'is_loaded': false
+      })
 
 
 func save_chunk_areas(new_chunk_areas : Array):

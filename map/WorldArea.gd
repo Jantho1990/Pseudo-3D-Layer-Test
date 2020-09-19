@@ -32,11 +32,11 @@ func _ready():
   print_owner_tree(self)
   # create_chunk_file()
   print(chunk_areas)
-  load_chunk_area(0)
+  load_chunk_area(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#  pass
+func _process(delta):
+  pass
 
 
 func add_chunk_to_chunk_areas(chunk_area):
@@ -74,9 +74,9 @@ func create_chunk_file():
 func load_chunk_area(chunk_id):
   # var chunk_area = load_chunk_area_from_file(chunk_id)
   # var scene = PackedScene.new()
-  var chunk_area = world_area_resource.get_chunk_area(chunk_id)
+  var chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area.instance()
   # var chunk_area_node = chunk_area.node.instance()
-  add_child(chunk_area.chunk_area)
+  add_child(chunk_area)
 
 
 func load_chunk_area_from_file(chunk_id):

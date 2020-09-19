@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://map/ChunkArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://map/WorldArea.tscn" type="PackedScene" id=2]
@@ -6,8 +6,12 @@
 [ext_resource path="res://cameras/DebugCamera/DebugCamera3D.gd" type="Script" id=4]
 [ext_resource path="res://containers/BuffContainer/BuffContainer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/3D/players/ScaleTest/ScaleTestCharacter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/3D/objects/Bed/Bed.tscn" type="PackedScene" id=7]
 
-[node name="WorldAreaTest" type="Spatial"]
+[node name="WorldAreaTEST" type="Spatial"]
+
+[node name="Bed" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29801, 1.18958, 0 )
 
 [node name="DebugCamera3D" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.934509, 0.355939, 0, -0.355939, 0.934509, 0, 1.30146, 2.38001 )
@@ -24,7 +28,7 @@ mesh_library = ExtResource( 3 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, -1609826303, 1, 0, -1609826303, 65535, 0, 786433, 0, 65534, 786433, 1, 65534, 786433, 65535, 65534, 786433, 0, 65535, 786433, 1, 65535, 786433, 65535, 65535, 786433 )
+"cells": PoolIntArray( 0, 0, 786433, 1, 0, 786433, 65535, 0, 786433, 0, 65534, 786433, 1, 65534, 786433, 65535, 65534, 786433, 0, 65535, 786433, 1, 65535, 786433, 65535, 65535, 786433 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -50,7 +54,7 @@ mesh_library = ExtResource( 3 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 65533, 65530, 786434, 65534, 65530, 786434, 65535, 65530, 786434, 65533, 65531, 786434, 65534, 65531, 786434, 65535, 65531, 786434, 65533, 65532, 786434, 65534, 65532, 786434 )
+"cells": PoolIntArray( 65533, 65530, 786434, 65534, 65530, -1072955390, 65535, 65530, 786434, 65533, 65531, 786434, 65534, 65531, 786434, 65535, 65531, 786434, 65533, 65532, 786434, 65534, 65532, 786434 )
 }
 __meta__ = {
 "_editor_clip_": 0
