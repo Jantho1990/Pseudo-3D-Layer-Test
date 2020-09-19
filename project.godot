@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "ChunkArea",
 "language": "GDScript",
-"path": "res://_tests/WorldArea/ChunkArea.gd"
+"path": "res://map/ChunkArea.gd"
 }, {
 "base": "Position2D",
 "class": "CinematicMark2D",
@@ -357,7 +357,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "WorldArea",
 "language": "GDScript",
-"path": "res://_tests/WorldArea/WorldArea.gd"
+"path": "res://map/WorldArea.gd"
 } ]
 _global_script_class_icons={
 "ActiveCamera2D": "",
