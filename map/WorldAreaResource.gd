@@ -5,11 +5,12 @@ export(Dictionary) var chunk_areas = {}
 
 func get_formatted_chunk_area(chunk_node):
   var packed_scene = PackedScene.new()
+  var chunk_id = chunk_node.chunk_id
   var result = packed_scene.pack(chunk_node)
   if result == OK:
     return {
       'chunk_area': packed_scene,
-      'chunk_id': chunk_node.chunk_id,
+      'chunk_id': chunk_id,
       'is_loaded': false
     }
   return null
@@ -17,11 +18,11 @@ func get_formatted_chunk_area(chunk_node):
 
 # Saves a chunk area.
 func save_chunk_area(new_chunk_area : Node):
+  # breakpoint
   trigger_packed_state_savers_pack(new_chunk_area)
-  if chunk_areas.has(new_chunk_area.chunk_id):
-    chunk_areas[new_chunk_area.chunk_id] = get_formatted_chunk_area(new_chunk_area)
-  else:
-    chunk_areas[new_chunk_area.chunk_id] = (get_formatted_chunk_area(new_chunk_area))
+  # breakpoint
+  chunk_areas[new_chunk_area.chunk_id] = get_formatted_chunk_area(new_chunk_area)
+  # breakpoint
 
 
 func save_chunk_areas(new_chunk_areas : Array):
@@ -52,16 +53,17 @@ func get_chunk_areas(target_area_ids : Array):
 
 
 func trigger_packed_state_savers_pack(node):
-  if node.has_node('PackedStateSaver'):
-    node.get_node('PackedStateSaver').pack_parent_properties()
+  print(node.name, 'trigger kids ', node is PackedStateSaver, node.get_children())
+  if node is PackedStateSaver:
+    node.pack_parent_properties()
   
   for child in node.get_children():
     trigger_packed_state_savers_pack(child)
 
   
 func trigger_packed_state_savers_unpack(node):
-  if node.has_node('PackedStateSaver'):
-    node.get_node('PackedStateSaver').unpack_parent_properties()
+  if node is PackedStateSaver:
+    node.unpack_parent_properties()
   
   for child in node.get_children():
     trigger_packed_state_savers_unpack(child)

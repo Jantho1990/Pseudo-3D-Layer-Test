@@ -3,9 +3,12 @@ extends Node
 class_name PackedStateSaver
 
 
-export(Array, String) var parent_properties = [] # Defines which properties from the parent we want to pack.
+export(Array, String) var parent_properties setget set_parent_properties,get_parent_properties # Defines which properties from the parent we want to pack.
 
-export(Dictionary) var packed_state = {} # Used to store the packed state of the parent node.
+export(Dictionary) var packed_state setget set_packed_state,get_packed_state # Used to store the packed state of the parent node.
+
+var _parent_properties
+var _packed_state
 
 
 func __private_set(_throwaway1_):
@@ -14,16 +17,49 @@ func __private_set(_throwaway1_):
 func __private_get():
   print('Private property')
 
+
+func _ready():
+  _parent_properties = parent_properties
+  _packed_state = packed_state
+  print('My parent is ', get_parent().name, ' and i have ', _parent_properties)
+
+
+func add_parent_property(value):
+  _parent_properties.push_back(value)
+
+
+func set_parent_properties(value):
+  print('Foos rah dah! ', value)
+  if not get_parent():
+    yield(self, 'ready')
+  _parent_properties = value
+
+
+func get_parent_properties():
+  return _parent_properties
+
+
+func set_packed_state(value):
+  _packed_state = value
+
+
+func get_packed_state():
+  return _packed_state
+
+
 func pack_parent_properties():
   var parent = get_parent()
-  for property in parent_properties:
+  print('ROLL ', get_parent_properties())
+  for property in get_parent_properties():
+    print('prop ', property)
     if property in parent:
-      packed_state[property] = parent[property]
+      self.packed_state[property] = parent[property]
+      print('Packed Property in Parent ', parent.name, ': ', property, ' = ', parent[property])
     else:
       push_error('Packed state property "' + property + '" does not exist in parent "' + parent.name + '"')
 
 
 func unpack_parent_properties():
   var parent = get_parent()
-  for key in packed_state.keys():
-    parent.set(key, packed_state[key])
+  for key in self.packed_state.keys():
+    parent.set(key, self.packed_state[key])

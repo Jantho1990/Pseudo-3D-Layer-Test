@@ -7,6 +7,7 @@ var chunk_id
 
 onready var zone = Area.new()
 onready var parent = get_parent()
+onready var packed_state_saver = PackedStateSaver.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +16,11 @@ func _ready():
   owner = get_parent()
   # print(self, 'now owned by', owner)
   acquire_ownership_of_children(self)
+  add_child(packed_state_saver)
+  packed_state_saver = get_node(packed_state_saver.name)
+  packed_state_saver.parent_properties = ['chunk_id']
+  packed_state_saver.owner = self
+  print('MY KIDS ', get_children())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
