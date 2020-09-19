@@ -30,6 +30,8 @@ func _ready():
   print_owner_tree(self)
   # create_chunk_file()
   print(chunk_areas)
+  ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
+  world_area_resource = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -79,12 +81,16 @@ func is_chunk_area_loaded(chunk_id):
 
 
 func load_chunk_area(chunk_id):
+  print('WAR is ', world_area_resource)
+  world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
   var loaded_chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area.instance()
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
       chunk_area.is_loaded = true
       chunk_area.node = loaded_chunk_area
   add_child(loaded_chunk_area)
+  ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
+  world_area_resource = null
 
 
 # Prepare a chunk for packing.
@@ -103,9 +109,13 @@ func print_owner_tree(root_node):
 
 
 func unload_chunk_area(chunk_id):
+  print('WAR is ', world_area_resource)
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
+      world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
       chunk_area.is_loaded = false
       world_area_resource.save_chunk_area(chunk_area.node)
       chunk_area.node.unload_chunk_area()
       chunk_area.node = null
+      ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
+      world_area_resource = null
