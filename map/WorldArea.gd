@@ -106,5 +106,6 @@ func unload_chunk_area(chunk_id):
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
       chunk_area.is_loaded = false
+      world_area_resource.save_chunk_area(chunk_area.node)
       chunk_area.node.unload_chunk_area()
       chunk_area.node = null
