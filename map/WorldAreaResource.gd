@@ -40,7 +40,7 @@ func get_chunk_areas(target_area_ids : Array):
   var ret = []
   for chunk_area in chunk_areas:
     var carara = chunk_area
-    print(carara)
+    # print(carara)
     if target_area_ids.has(chunk_area.chunk_id):
       ret.push_back({
       'chunk_area': chunk_area.chunk_area,

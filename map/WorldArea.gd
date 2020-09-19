@@ -20,11 +20,9 @@ func _ready():
   for child in get_children():
     print('derp')
     if child is ChunkArea:
-      # print('Burger: ', child.get_serialized_chunk())
       if child.owner != self:
         child.owner = self
       add_chunk_to_chunk_areas(child)
-      # child.unload_chunk_area()
     else:
       # Must only have ChunkArea nodes as children.
       push_error('Child of WorldArea "' + name + '" is not a ChunkArea (' + child.name + ')')
@@ -43,7 +41,9 @@ func add_chunk_to_chunk_areas(chunk_area):
   world_area_resource.save_chunk_area(chunk_area)
   var data = {
     'chunk_id': chunk_area.chunk_id,
-    'zone': chunk_area.zone
+    'zone': chunk_area.zone,
+    'is_loaded': false,
+    'node': null
   }
   chunk_areas.push_back(data)
   chunk_area.unload_chunk_area()
@@ -62,55 +62,36 @@ func create_chunk_file():
   print(chunks_file_path)
   print('FP: ', file.get_path_absolute(), file.is_open())
   for chunk_area in chunk_areas:
-    # print('CA: ', chunk_area)
-    file.store_line(to_json(chunk_area))
-    # ResourceSaver.save(chunks_file_path + String(chunk_area.id) + '.tscn', chunk_area.node)
     chunk_areas.insert(chunk_area.id, { "id": chunk_area.id })
     chunk_areas.remove(chunk_area.id + 1)
   file.close()
 
 
+func is_chunk_area_loaded(chunk_id):
+  print(chunk_areas)
+  for chunk_area in chunk_areas:
+    if chunk_area.chunk_id == chunk_id and chunk_area.is_loaded:
+      print('YEP')
+      return true
+
+  print('NOPE')
+  return false
+
+
 func load_chunk_area(chunk_id):
-  # var chunk_area = load_chunk_area_from_file(chunk_id)
-  # var scene = PackedScene.new()
-  var chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area.instance()
-  # var chunk_area_node = chunk_area.node.instance()
-  add_child(chunk_area)
-
-
-func load_chunk_area_from_file(chunk_id):
-  var file = File.new()
-  if not file.file_exists(chunks_file_path): # No save file created yet.
-    return
-  file.open(chunks_file_path, File.READ)
-  var i = 0
-  var chunk_area
-  var chunk_found = false
-  while not file.eof_reached() and not chunk_found:
-    var line = file.get_line()
-    if i != chunk_id:
-      continue
-    chunk_area = parse_json(line)
-    chunk_found = true
-    break
-  file.close()
-  # breakpoint
-  return chunk_area
-
+  var loaded_chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area.instance()
+  for chunk_area in chunk_areas:
+    if chunk_area.chunk_id == chunk_id:
+      chunk_area.is_loaded = true
+      chunk_area.node = loaded_chunk_area
+  add_child(loaded_chunk_area)
 
 
 # Prepare a chunk for packing.
 func pack_chunk(chunk_node):
-  # var packed_chunk = PackedScene.new()
-  # packed_chunk.pack(chunk_node)
-  # packed_chunk = inst2dict(packed_chunk)
-  # var packed_chunk = inst2dict(chunk_node)
   var packed_chunk = chunk_node.get_serialized_chunk()
-  # print('ffefe ', packed_chunk)
   return packed_chunk
 
-
-# Check if this node 
 
 func print_owner_tree(root_node):
   print(root_node.name, ' owned by ', root_node.get_owner().name)
@@ -119,3 +100,11 @@ func print_owner_tree(root_node):
       print_owner_tree(child)
     else:
       print(child.name, ' owned by ', child.get_owner().name)
+
+
+func unload_chunk_area(chunk_id):
+  for chunk_area in chunk_areas:
+    if chunk_area.chunk_id == chunk_id:
+      chunk_area.is_loaded = false
+      chunk_area.node.unload_chunk_area()
+      chunk_area.node = null

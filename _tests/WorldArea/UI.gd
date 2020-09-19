@@ -11,4 +11,7 @@ func _ready():
 
 
 func load_scene(chunk_id):
-  world_area.load_chunk_area(chunk_id)
+  if world_area.is_chunk_area_loaded(chunk_id):
+    world_area.unload_chunk_area(chunk_id)
+  else:
+    world_area.load_chunk_area(chunk_id)
