@@ -15,17 +15,26 @@ func _ready():
   # print(self, 'was owned by', owner)
   owner = get_parent()
   # print(self, 'now owned by', owner)
+  if not has_packed_state_saver():
+    add_child(packed_state_saver)
+    packed_state_saver = get_node(packed_state_saver.name)
+    packed_state_saver.parent_properties = ['chunk_id']
+    packed_state_saver.owner = self
+  
   acquire_ownership_of_children(self)
-  add_child(packed_state_saver)
-  packed_state_saver = get_node(packed_state_saver.name)
-  packed_state_saver.parent_properties = ['chunk_id']
-  packed_state_saver.owner = self
   print('MY KIDS ', get_children())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #  pass
+
+
+func has_packed_state_saver():
+  for child in get_children():
+    if child is PackedStateSaver:
+      return true
+  return false
 
 
 # Gives control of every child node which isn't part of another scene to this ChunkArea.
