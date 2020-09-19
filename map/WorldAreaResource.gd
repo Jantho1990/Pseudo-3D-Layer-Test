@@ -17,6 +17,7 @@ func get_formatted_chunk_area(chunk_node):
 
 # Saves a chunk area.
 func save_chunk_area(new_chunk_area : Node):
+  trigger_packed_state_savers_pack(new_chunk_area)
   if chunk_areas.has(new_chunk_area.chunk_id):
     chunk_areas[new_chunk_area.chunk_id] = get_formatted_chunk_area(new_chunk_area)
   else:
@@ -39,10 +40,28 @@ func get_chunk_areas(target_area_ids : Array):
   for target_area_id in target_area_ids:
     if chunk_areas.has(target_area_id):
       var chunk_area = chunk_areas[target_area_id]
+      var chunk_area_node = chunk_area.chunk_area.instance()
+      trigger_packed_state_savers_unpack(chunk_area_node)
       ret.push_back({
-        'chunk_area': chunk_area.chunk_area,
+        'chunk_area': chunk_area_node,
         'chunk_id': chunk_area.chunk_id,
         'is_loaded': false
       })
   
   return ret
+
+
+func trigger_packed_state_savers_pack(node):
+  if node.has_node('PackedStateSaver'):
+    node.get_node('PackedStateSaver').pack_parent_properties()
+  
+  for child in node.get_children():
+    trigger_packed_state_savers_pack(child)
+
+  
+func trigger_packed_state_savers_unpack(node):
+  if node.has_node('PackedStateSaver'):
+    node.get_node('PackedStateSaver').unpack_parent_properties()
+  
+  for child in node.get_children():
+    trigger_packed_state_savers_unpack(child)

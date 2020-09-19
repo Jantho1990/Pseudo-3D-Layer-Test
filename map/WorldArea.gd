@@ -83,7 +83,7 @@ func is_chunk_area_loaded(chunk_id):
 func load_chunk_area(chunk_id):
   print('WAR is ', world_area_resource)
   world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
-  var loaded_chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area.instance()
+  var loaded_chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
       chunk_area.is_loaded = true
@@ -112,6 +112,7 @@ func unload_chunk_area(chunk_id):
   print('WAR is ', world_area_resource)
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
+      # breakpoint
       world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
       chunk_area.is_loaded = false
       world_area_resource.save_chunk_area(chunk_area.node)

@@ -28,8 +28,11 @@ func acquire_ownership_of_children(node):
     # print(child.name, ' owned by ', child.owner.name)
     if child.owner != self and child.owner == parent.get_owner():
       child.owner = self
-    else:
-      return
+    elif child.owner == parent.get_owner():
+      child.owner = child.get_parent()
+    # else:
+    #   print(child.name, ' is derped by ', child.owner.name)
+      # return
     
     if child.get_children().size() > 0:
       acquire_ownership_of_children(child)
