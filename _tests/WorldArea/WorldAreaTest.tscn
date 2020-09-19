@@ -1,14 +1,50 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://map/ChunkArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://map/WorldArea.tscn" type="PackedScene" id=2]
 [ext_resource path="res://meshes/SmallHouse/SmallHouse.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://cameras/DebugCamera/DebugCamera3D.gd" type="Script" id=4]
 [ext_resource path="res://containers/BuffContainer/BuffContainer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/3D/players/ScaleTest/ScaleTestCharacter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/3D/objects/BedroomBookshelf/BedroomBookshelf.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/3D/objects/Bed/Bed.tscn" type="PackedScene" id=7]
+[ext_resource path="res://_tests/WorldArea/UI.gd" type="Script" id=8]
 
 [node name="WorldAreaTEST" type="Spatial"]
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 44.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load0" type="Button" parent="UI/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 40.0
+text = "0"
+
+[node name="Load1" type="Button" parent="UI/HBoxContainer"]
+margin_left = 40.0
+margin_right = 60.0
+margin_bottom = 40.0
+text = "1"
+
+[node name="Load2" type="Button" parent="UI/HBoxContainer"]
+margin_left = 80.0
+margin_right = 100.0
+margin_bottom = 40.0
+text = "2"
 
 [node name="Bed" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29801, 1.18958, 0 )
@@ -54,7 +90,7 @@ mesh_library = ExtResource( 3 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 65533, 65530, 786434, 65534, 65530, -1072955390, 65535, 65530, 786434, 65533, 65531, 786434, 65534, 65531, 786434, 65535, 65531, 786434, 65533, 65532, 786434, 65534, 65532, 786434 )
+"cells": PoolIntArray( 65533, 65530, 786434, 65534, 65530, 786434, 65535, 65530, 786434, 65533, 65531, 786434, 65534, 65531, 786434, 65535, 65531, 786434, 65533, 65532, 786434, 65534, 65532, 786434 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -64,4 +100,8 @@ __meta__ = {
 
 [node name="IAmAKid" type="Spatial" parent="TestWorldArea/ChunkArea3/BuffContainer"]
 
-[node name="ScaleTestCharacter" parent="TestWorldArea/ChunkArea3" instance=ExtResource( 6 )]
+[node name="BedroomBookshelf" parent="TestWorldArea/ChunkArea3" instance=ExtResource( 6 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1431, 0.5103, -4.74753 )
+[connection signal="pressed" from="UI/HBoxContainer/Load0" to="UI" method="load_scene" binds= [ 0 ]]
+[connection signal="pressed" from="UI/HBoxContainer/Load1" to="UI" method="load_scene" binds= [ 1 ]]
+[connection signal="pressed" from="UI/HBoxContainer/Load2" to="UI" method="load_scene" binds= [ 2 ]]

@@ -32,7 +32,6 @@ func _ready():
   print_owner_tree(self)
   # create_chunk_file()
   print(chunk_areas)
-  load_chunk_area(2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
