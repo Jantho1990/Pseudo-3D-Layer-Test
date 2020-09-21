@@ -54,6 +54,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://map/ChunkArea.gd"
 }, {
+"base": "Area",
+"class": "ChunkAreaDetector3D",
+"language": "GDScript",
+"path": "res://map/ChunkAreaDetector3D.gd"
+}, {
+"base": "Area",
+"class": "ChunkAreaZone3D",
+"language": "GDScript",
+"path": "res://map/ChunkAreaZone3D.gd"
+}, {
 "base": "Position2D",
 "class": "CinematicMark2D",
 "language": "GDScript",
@@ -374,6 +384,8 @@ _global_script_class_icons={
 "CSVFile": "",
 "CallbackDelegator": "",
 "ChunkArea": "",
+"ChunkAreaDetector3D": "",
+"ChunkAreaZone3D": "",
 "CinematicMark2D": "",
 "ClassType": "",
 "Construct": "",

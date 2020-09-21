@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://map/ChunkArea.gd" type="Script" id=1]
 [ext_resource path="res://map/WorldArea.tscn" type="PackedScene" id=2]
@@ -10,6 +10,21 @@
 [ext_resource path="res://_tests/WorldArea/UI.gd" type="Script" id=8]
 [ext_resource path="res://_tests/WorldArea/BedroomBookshelf.gd" type="Script" id=9]
 [ext_resource path="res://_tests/WorldArea/PackedStateSaver.gd" type="Script" id=10]
+[ext_resource path="res://map/ChunkAreaZone3D.gd" type="Script" id=11]
+[ext_resource path="res://_tests/WorldArea/ZoneLoadTestCharacter.tscn" type="PackedScene" id=12]
+[ext_resource path="res://map/ChunkAreaDetector3D.gd" type="Script" id=13]
+
+[sub_resource type="SphereShape" id=4]
+radius = 0.655976
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.58858, 1, 1.66808 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.59487, 1, 1.13602 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1.68406, 1, 1.6305 )
 
 [node name="WorldAreaTEST" type="Spatial"]
 
@@ -54,9 +69,22 @@ visible = false
 
 [node name="DebugCamera3D" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.934509, 0.355939, 0, -0.355939, 0.934509, 0, 1.30146, 2.38001 )
-current = true
 script = ExtResource( 4 )
 speed = 2.0
+
+[node name="ZoneLoadTestCharacter" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+
+[node name="Camera" type="Camera" parent="ZoneLoadTestCharacter"]
+transform = Transform( 1, 0, 0, 0, 0.903933, 0.427673, 0, -0.427673, 0.903933, 0, 0.621102, 0.887225 )
+current = true
+
+[node name="ChunkAreaDetector3D" type="Area" parent="ZoneLoadTestCharacter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ZoneLoadTestCharacter/ChunkAreaDetector3D"]
+shape = SubResource( 4 )
 
 [node name="TestWorldArea" parent="." instance=ExtResource( 2 )]
 
@@ -74,6 +102,13 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
+[node name="ChunkAreaZone3D" type="Area" parent="TestWorldArea/ChunkArea1"]
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea1/ChunkAreaZone3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.500765, 0, -0.554647 )
+shape = SubResource( 1 )
+
 [node name="ChunkArea2" type="Spatial" parent="TestWorldArea"]
 script = ExtResource( 1 )
 
@@ -87,6 +122,14 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="ChunkAreaZone3D" type="Area" parent="TestWorldArea/ChunkArea2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.378087, 0, -3.15066 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea2/ChunkAreaZone3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124179, 0, 0.165572 )
+shape = SubResource( 2 )
 
 [node name="ChunkArea3" type="Spatial" parent="TestWorldArea"]
 script = ExtResource( 1 )
@@ -113,6 +156,13 @@ script = ExtResource( 9 )
 [node name="PackedStateSaver" type="Node" parent="TestWorldArea/ChunkArea3/BedroomBookshelf"]
 script = ExtResource( 10 )
 parent_properties = [ "testvar" ]
+
+[node name="ChunkAreaZone3D" type="Area" parent="TestWorldArea/ChunkArea3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48514, 0, -4.47423 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea3/ChunkAreaZone3D"]
+shape = SubResource( 3 )
 [connection signal="pressed" from="UI/HBoxContainer/Load0" to="UI" method="load_scene" binds= [ 0 ]]
 [connection signal="pressed" from="UI/HBoxContainer/Load1" to="UI" method="load_scene" binds= [ 1 ]]
 [connection signal="pressed" from="UI/HBoxContainer/Load2" to="UI" method="load_scene" binds= [ 2 ]]

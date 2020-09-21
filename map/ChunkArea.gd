@@ -22,12 +22,29 @@ func _ready():
     packed_state_saver.owner = self
   
   acquire_ownership_of_children(self)
+  connect_collision_area_zones()
   print('MY KIDS ', get_children())
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #  pass
+
+
+func _on_Chunk_area_zone_entered():
+  print(name, ' loading zone entered')
+
+
+func _on_Chunk_area_zone_exited():
+  print(name, ' loading zone exited')
+
+
+func connect_collision_area_zones():
+  for child in get_children():
+    if child is ChunkAreaZone3D:
+      child.connect('chunk_area_zone_entered', self, '_on_Chunk_area_zone_entered')
+      child.connect('chunk_area_zone_exited', self, '_on_Chunk_area_zone_exited')
 
 
 func has_packed_state_saver():

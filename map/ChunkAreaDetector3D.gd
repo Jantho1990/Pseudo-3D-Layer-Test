@@ -1,0 +1,3 @@
+extends Area
+
+class_name ChunkAreaDetector3D
