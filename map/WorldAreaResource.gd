@@ -18,11 +18,8 @@ func get_formatted_chunk_area(chunk_node):
 
 # Saves a chunk area.
 func save_chunk_area(new_chunk_area : Node):
-  # breakpoint
   trigger_packed_state_savers_pack(new_chunk_area)
-  # breakpoint
   chunk_areas[new_chunk_area.chunk_id] = get_formatted_chunk_area(new_chunk_area)
-  # breakpoint
 
 
 func save_chunk_areas(new_chunk_areas : Array):
@@ -53,7 +50,6 @@ func get_chunk_areas(target_area_ids : Array):
 
 
 func trigger_packed_state_savers_pack(node):
-  print(node.name, 'trigger kids ', node is PackedStateSaver, node.get_children())
   if node is PackedStateSaver:
     node.pack_parent_properties()
   

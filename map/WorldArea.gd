@@ -16,9 +16,7 @@ onready var world_area_resource = WorldAreaResource.new()
 func _ready():
   create_world_areas_dir()
   # Put all the chunk areas into an array.
-  print('ffff')
   for child in get_children():
-    print('derp')
     if child is ChunkArea:
       if child.owner != self:
         child.owner = self
@@ -26,11 +24,8 @@ func _ready():
     else:
       # Must only have ChunkArea nodes as children.
       push_error('Child of WorldArea "' + name + '" is not a ChunkArea (' + child.name + ')')
-  print('fin dat')
-  print_owner_tree(self)
-  # create_chunk_file()
-  print(chunk_areas)
-  # breakpoint
+  
+  # print_owner_tree(self)
   ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
   world_area_resource = null
 
@@ -62,8 +57,6 @@ func create_chunk_file():
   # return
   var file = File.new()
   file.open(chunks_file_path, File.WRITE)
-  print(chunks_file_path)
-  print('FP: ', file.get_path_absolute(), file.is_open())
   for chunk_area in chunk_areas:
     chunk_areas.insert(chunk_area.id, { "id": chunk_area.id })
     chunk_areas.remove(chunk_area.id + 1)
@@ -71,18 +64,14 @@ func create_chunk_file():
 
 
 func is_chunk_area_loaded(chunk_id):
-  print(chunk_areas)
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id and chunk_area.is_loaded:
-      print('YEP')
       return true
 
-  print('NOPE')
   return false
 
 
 func load_chunk_area(chunk_id):
-  print('WAR is ', world_area_resource)
   world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
   var loaded_chunk_area = world_area_resource.get_chunk_area(chunk_id).chunk_area
   for chunk_area in chunk_areas:
@@ -92,10 +81,6 @@ func load_chunk_area(chunk_id):
   add_child(loaded_chunk_area)
   ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
   world_area_resource = null
-  print('LOADED CHUNK')
-  print('chunk_id: ', chunk_id)
-  print('loaded_chunk_area: ', loaded_chunk_area.name)
-  print('chunk chunk_id: ', loaded_chunk_area.chunk_id)
 
 
 # Prepare a chunk for packing.
@@ -115,14 +100,9 @@ func print_owner_tree(root_node):
 
 
 func unload_chunk_area(chunk_id):
-  print('WAR is ', world_area_resource)
-  print('UNLOADED CHUNK')
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
       # breakpoint
-      print('chunk_id: ', chunk_id)
-      print('chunk_area: ', chunk_area.node.name)
-      print('chunk chunk_id: ', chunk_area.node.chunk_id)
       world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
       chunk_area.is_loaded = false
       world_area_resource.save_chunk_area(chunk_area.node)

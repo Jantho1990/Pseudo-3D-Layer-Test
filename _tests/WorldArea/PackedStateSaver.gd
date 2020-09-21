@@ -21,7 +21,6 @@ func __private_get():
 func _ready():
   _parent_properties = parent_properties
   _packed_state = packed_state
-  print('My parent is ', get_parent().name, ' and i have ', _parent_properties)
 
 
 func add_parent_property(value):
@@ -29,7 +28,6 @@ func add_parent_property(value):
 
 
 func set_parent_properties(value):
-  print('Foos rah dah! ', value)
   if not get_parent():
     yield(self, 'ready')
   _parent_properties = value
@@ -49,12 +47,9 @@ func get_packed_state():
 
 func pack_parent_properties():
   var parent = get_parent()
-  print('ROLL ', get_parent_properties())
   for property in get_parent_properties():
-    print('prop ', property)
     if property in parent:
       self.packed_state[property] = parent[property]
-      print('Packed Property in Parent ', parent.name, ': ', property, ' = ', parent[property])
     else:
       push_error('Packed state property "' + property + '" does not exist in parent "' + parent.name + '"')
 
