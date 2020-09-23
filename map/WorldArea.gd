@@ -22,29 +22,28 @@ func _ready():
         child.owner = self
       add_chunk_to_chunk_areas(child)
     else:
-      # Must only have ChunkArea nodes as children.
+      # Must only have ChunkArea nodes as direct children.
       push_error('Child of WorldArea "' + name + '" is not a ChunkArea (' + child.name + ')')
   
   # print_owner_tree(self)
   ResourceSaver.save(chunks_file_path + '.tres', world_area_resource)
   world_area_resource = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-  pass
-
 
 func add_chunk_to_chunk_areas(chunk_area):
   chunk_area.chunk_id = chunk_areas.size()
+  var unloaded_chunk_area = create_unloaded_chunk_area(chunk_area)
   world_area_resource.save_chunk_area(chunk_area)
   var data = {
     'chunk_id': chunk_area.chunk_id,
     'zone': chunk_area.zone,
     'is_loaded': false,
-    'node': null
+    'node': null,
+    'load_zone': unloaded_chunk_area
   }
   chunk_areas.push_back(data)
   chunk_area.unload_chunk_area()
+  add_child(unloaded_chunk_area)
 
 
 func create_world_areas_dir():
@@ -53,8 +52,19 @@ func create_world_areas_dir():
     dir.make_dir_recursive(WORLD_AREAS_DIR)
 
 
+func create_unloaded_chunk_area(chunk_area):
+  var unloaded_chunk_area = UnloadedChunkArea.new()
+  unloaded_chunk_area.transform = chunk_area.transform
+  unloaded_chunk_area.translation = chunk_area.translation
+  unloaded_chunk_area.rotation = chunk_area.rotation
+  unloaded_chunk_area.scale = chunk_area.scale
+  var loading_zones = chunk_area.extract_loading_zones()
+  for loading_zone in loading_zones:
+    unloaded_chunk_area.add_child(loading_zone)
+    loading_zone.connect_area_signals()
+  return unloaded_chunk_area
+
 func create_chunk_file():
-  # return
   var file = File.new()
   file.open(chunks_file_path, File.WRITE)
   for chunk_area in chunk_areas:
@@ -95,14 +105,12 @@ func print_owner_tree(root_node):
     if child.get_children().size() > 0:
       print_owner_tree(child)
     else:
-      var owner = child.get_owner()
       print(child.name, ' owned by ', child.get_owner().name)
 
 
 func unload_chunk_area(chunk_id):
   for chunk_area in chunk_areas:
     if chunk_area.chunk_id == chunk_id:
-      # breakpoint
       world_area_resource = ResourceLoader.load(chunks_file_path + '.tres', '', true)
       chunk_area.is_loaded = false
       world_area_resource.save_chunk_area(chunk_area.node)

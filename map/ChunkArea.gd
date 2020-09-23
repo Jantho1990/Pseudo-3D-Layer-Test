@@ -5,6 +5,7 @@ class_name ChunkArea
 
 var chunk_id
 
+onready var children_container = Node.new() # We will move chunk children except loading zones into this node.
 onready var zone = Area.new()
 onready var parent = get_parent()
 onready var packed_state_saver = PackedStateSaver.new()
@@ -19,22 +20,16 @@ func _ready():
     packed_state_saver.owner = self
   
   acquire_ownership_of_children(self)
-  connect_collision_area_zones()
 
 
-func _on_Chunk_area_zone_entered():
-  print(name, ' loading zone entered')
-
-
-func _on_Chunk_area_zone_exited():
-  print(name, ' loading zone exited')
-
-
-func connect_collision_area_zones():
+# Removes any loading zone nodes and returns them to the calling node.
+func extract_loading_zones():
+  var ret = []
   for child in get_children():
     if child is ChunkAreaZone3D:
-      child.connect('chunk_area_zone_entered', self, '_on_Chunk_area_zone_entered')
-      child.connect('chunk_area_zone_exited', self, '_on_Chunk_area_zone_exited')
+      ret.push_back(child)
+      remove_child(child)
+  return ret
 
 
 func has_packed_state_saver():
@@ -47,8 +42,10 @@ func has_packed_state_saver():
 # Gives control of every child node which isn't part of another scene to this ChunkArea.
 func acquire_ownership_of_children(node):
   for child in node.get_children():
-    if child.owner != self and child.owner == parent.get_owner():
-      child.owner = self
+    if child.owner != self and \
+      child.owner == parent.get_owner() and not \
+      child is ChunkAreaZone3D:
+        child.owner = self
     elif child.owner == parent.get_owner():
       child.owner = child.get_parent()
     
@@ -61,4 +58,5 @@ func get_serialized_chunk():
 
 
 func unload_chunk_area():
+  parent.remove_child(self)
   queue_free()

@@ -7,6 +7,11 @@ signal chunk_area_zone_exited
 
 
 func _ready():
+  # connect_area_signals()
+  pass
+
+
+func connect_area_signals():
   connect('area_entered', self, '_on_Area_entered')
   connect('area_exited', self, '_on_Area_exited')
 

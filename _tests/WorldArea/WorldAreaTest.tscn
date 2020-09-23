@@ -14,16 +14,16 @@
 [ext_resource path="res://_tests/WorldArea/ZoneLoadTestCharacter.tscn" type="PackedScene" id=12]
 [ext_resource path="res://map/ChunkAreaDetector3D.gd" type="Script" id=13]
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape" id=1]
 radius = 0.655976
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 1.58858, 1, 1.66808 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 1.59487, 1, 1.13602 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 1.68406, 1, 1.6305 )
 
 [node name="WorldAreaTEST" type="Spatial"]
@@ -84,7 +84,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 script = ExtResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="ZoneLoadTestCharacter/ChunkAreaDetector3D"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="TestWorldArea" parent="." instance=ExtResource( 2 )]
 
@@ -107,7 +107,7 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea1/ChunkAreaZone3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.500765, 0, -0.554647 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="ChunkArea2" type="Spatial" parent="TestWorldArea"]
 script = ExtResource( 1 )
@@ -129,7 +129,7 @@ script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea2/ChunkAreaZone3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124179, 0, 0.165572 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="ChunkArea3" type="Spatial" parent="TestWorldArea"]
 script = ExtResource( 1 )
@@ -162,7 +162,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48514, 0, -4.47423 )
 script = ExtResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="TestWorldArea/ChunkArea3/ChunkAreaZone3D"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 [connection signal="pressed" from="UI/HBoxContainer/Load0" to="UI" method="load_scene" binds= [ 0 ]]
 [connection signal="pressed" from="UI/HBoxContainer/Load1" to="UI" method="load_scene" binds= [ 1 ]]
 [connection signal="pressed" from="UI/HBoxContainer/Load2" to="UI" method="load_scene" binds= [ 2 ]]

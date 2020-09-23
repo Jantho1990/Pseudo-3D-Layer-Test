@@ -339,6 +339,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-next/references/tween_sequence/tweener.gd"
 }, {
+"base": "Spatial",
+"class": "UnloadedChunkArea",
+"language": "GDScript",
+"path": "res://map/UnloadedChunkArea.gd"
+}, {
 "base": "DataStore",
 "class": "UserStore",
 "language": "GDScript",
@@ -441,6 +446,7 @@ _global_script_class_icons={
 "Trigger": "",
 "TweenSequence": "",
 "Tweener": "",
+"UnloadedChunkArea": "",
 "UserStore": "",
 "VBoxItemList": "res://addons/godot-next/icons/icon_v_box_item_list.svg",
 "Variant": "",
