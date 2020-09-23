@@ -54,10 +54,16 @@ func create_world_areas_dir():
 
 func create_unloaded_chunk_area(chunk_area):
   var unloaded_chunk_area = UnloadedChunkArea.new()
+  
   unloaded_chunk_area.transform = chunk_area.transform
   unloaded_chunk_area.translation = chunk_area.translation
   unloaded_chunk_area.rotation = chunk_area.rotation
   unloaded_chunk_area.scale = chunk_area.scale
+  unloaded_chunk_area.chunk_id = chunk_area.chunk_id
+  unloaded_chunk_area.is_chunk_loaded_func = funcref(self, 'is_chunk_area_loaded')
+  unloaded_chunk_area.load_chunk_func = funcref(self, 'load_chunk_area')
+  unloaded_chunk_area.unload_chunk_func = funcref(self, 'unload_chunk_area')
+
   var loading_zones = chunk_area.extract_loading_zones()
   for loading_zone in loading_zones:
     unloaded_chunk_area.add_child(loading_zone)
