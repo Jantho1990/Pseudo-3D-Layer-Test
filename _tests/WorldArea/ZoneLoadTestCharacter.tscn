@@ -13,5 +13,5 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-billboard = 2
+billboard = 1
 texture = ExtResource( 2 )

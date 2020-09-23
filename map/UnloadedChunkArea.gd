@@ -3,6 +3,8 @@ extends Spatial
 class_name UnloadedChunkArea
 
 
+var chunk_load_counter = 0
+
 var chunk_id : int
 var is_chunk_loaded_func : FuncRef
 var load_chunk_func : FuncRef
@@ -14,15 +16,17 @@ func _ready():
 
 
 func _on_Chunk_area_zone_entered():
-  if load_chunk_func and \
-    is_chunk_loaded_func and \
-    !is_chunk_loaded_func.call_func(chunk_id):
-    load_chunk_func.call_func(chunk_id)
+  if load_chunk_func and is_chunk_loaded_func:
+    chunk_load_counter += 1
+    if !is_chunk_loaded_func.call_func(chunk_id):
+      load_chunk_func.call_func(chunk_id)
 
 
 func _on_Chunk_area_zone_exited():
-  if unload_chunk_func:
-    unload_chunk_func.call_func(chunk_id)
+  if unload_chunk_func and is_chunk_loaded_func:
+    chunk_load_counter -= 1
+    if chunk_load_counter == 0 and is_chunk_loaded_func.call_func(chunk_id):
+      unload_chunk_func.call_func(chunk_id)
 
 
 func connect_collision_area_zones():
