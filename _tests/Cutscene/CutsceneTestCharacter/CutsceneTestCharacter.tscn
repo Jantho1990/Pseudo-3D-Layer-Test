@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://_tests/Cutscene/CutsceneTestCharacter/CutsceneTestCharacter.gd" type="Script" id=1]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_with_four_facial_expressions.png" type="Texture" id=2]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_with_4_expressions_-_64.png" type="Texture" id=3]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_neutral_face.png" type="Texture" id=4]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_sad.png" type="Texture" id=5]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_mad.png" type="Texture" id=6]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns_happy.png" type="Texture" id=7]
+[ext_resource path="res://entities/3D/players/ScaleTest/test_character_64_with_turns.png" type="Texture" id=8]
+
+[sub_resource type="BoxShape" id=1]
+
+[node name="CutsceneTestCharacter" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.0313
+texture = ExtResource( 2 )
+hframes = 4
+region_rect = Rect2( 0, 0, 408, 256 )
+
+[node name="Sprite3D64" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.0156
+texture = ExtResource( 3 )
+hframes = 4
+
+[node name="Sprite3D64Blank" type="Sprite3D" parent="."]
+visible = false
+pixel_size = 0.0156
+texture = ExtResource( 8 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Neutral" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Happy" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 7 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Sad" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 5 )
+vframes = 2
+hframes = 4
+
+[node name="Sprite3D64Angry" type="Sprite3D" parent="."]
+pixel_size = 0.0156
+texture = ExtResource( 6 )
+vframes = 2
+hframes = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.280764, 0, 0, 0, 0.904893, 0, 0, 0, 0.111314, 0, -0.0567125, 0 )
+shape = SubResource( 1 )
+
+[node name="Camera" type="ClippedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+current = true
+fov = 73.7
+near = 0.01
+far = 200.0
+margin = 1.0
+clip_to_areas = true
+clip_to_bodies = false
+
+[node name="LayerShiftDelay" type="Timer" parent="."]
+
+[node name="LayerShiftTween" type="Tween" parent="."]

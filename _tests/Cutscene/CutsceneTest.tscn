@@ -5,7 +5,7 @@
 [ext_resource path="res://map/WorldArea.gd" type="Script" id=3]
 [ext_resource path="res://_tests/Cutscene/Room2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://_tests/Cutscene/HallwayRoom.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/3D/players/ScaleTest/ScaleTestCharacter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://_tests/Cutscene/CutsceneTestCharacter/CutsceneTestCharacter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://map/ChunkAreaDetector3D.gd" type="Script" id=7]
 [ext_resource path="res://map/ChunkAreaZone3D.gd" type="Script" id=8]
 
@@ -65,12 +65,16 @@ script = ExtResource( 8 )
 transform = Transform( 4.66035, 0, 0, 0, 1, 0, 0, 0, 3.12623, 0, 0, 0 )
 shape = SubResource( 3 )
 
-[node name="ScaleTestCharacter" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978076, 0 )
+[node name="CutsceneTestCharacter" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.978076, -1.25192 )
 
-[node name="ChunkAreaDetector3D" type="Area" parent="ScaleTestCharacter"]
+[node name="ChunkAreaDetector3D" type="Area" parent="CutsceneTestCharacter"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10718, 0 )
 script = ExtResource( 7 )
 
-[node name="CollisionShape" type="CollisionShape" parent="ScaleTestCharacter/ChunkAreaDetector3D"]
+[node name="CollisionShape" type="CollisionShape" parent="CutsceneTestCharacter/ChunkAreaDetector3D"]
 shape = SubResource( 4 )
+
+[node name="Camera2" type="Camera" parent="CutsceneTestCharacter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.60572 )
+current = true
