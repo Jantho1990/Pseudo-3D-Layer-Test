@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://meshes/SmallHouse/SmallHouse.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://systems/cutscene/DollyTrack3D.gd" type="Script" id=2]
+[ext_resource path="res://systems/cutscene/DollyCamera3D.gd" type="Script" id=3]
+[ext_resource path="res://_tests/Cutscene/DollyTest.gd" type="Script" id=4]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PoolVector3Array( -1.04765, 0.0871587, 0.480385, 1.04765, -0.0871587, -0.480385, -0.00380325, 0, -2.60514, -0.0945897, 0.655763, -1.79737, 0.0945897, -0.655763, 1.79737, 2.44541, 0.984299, 0.00380326, 1.30829, -0.336686, 0.04741, -1.30829, 0.336686, -0.04741, 0.00380325, 1.42067, 2.28568, -0.756777, -0.186197, 1.05514, 0.756777, 0.186197, -1.05514, -2.24765, 0.37886, -0.0190158 ),
+"tilts": PoolRealArray( 0, 0, 0, 0 )
+}
+
+[node name="DollyTest" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 0, 1074528257, 1, 0, 786433, 2, 0, 537657345, 65533, 0, 786433, 65534, 0, -1072955391, 65535, 0, 1074528257, 0, 1, 786433, 1, 1, 786433, 2, 1, 537657345, 65533, 1, 786433, 65534, 1, -1072955391, 65535, 1, 786433, 0, 2, 786433, 1, 2, 537657345, 2, 2, 537657345, 65533, 2, 786433, 65534, 2, 786433, 65535, 2, 537657345, 0, 65533, 537657345, 1, 65533, 537657345, 2, 65533, 537657345, 65533, 65533, 537657345, 65534, 65533, 786433, 65535, 65533, 786433, 0, 65534, 786433, 1, 65534, 786433, 2, 65534, 537657345, 65533, 65534, 1074528257, 65534, 65534, 537657345, 65535, 65534, 786433, 0, 65535, 1074528257, 1, 65535, 786433, 2, 65535, 1074528257, 65533, 65535, 537657345, 65534, 65535, 786433, 65535, 65535, 786433 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="DollyTrack3D" type="Path" parent="."]
+curve = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="DollyCamera3D" type="Camera" parent="DollyTrack3D"]
+transform = Transform( -0.999095, 0, -0.0425381, 0, 1, 0, 0.0425381, 0, -0.999095, 0, 0, 0 )
+current = true
+script = ExtResource( 3 )

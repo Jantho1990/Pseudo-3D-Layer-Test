@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://spells/CreateConstruct.gd"
 }, {
+"base": "Node",
+"class": "Cutscene3D",
+"language": "GDScript",
+"path": "res://systems/cutscene/Cutscene3D.gd"
+}, {
 "base": "TabContainer",
 "class": "Cycle",
 "language": "GDScript",
@@ -123,6 +128,16 @@ _global_script_classes=[ {
 "class": "DiscreteGradientTexture",
 "language": "GDScript",
 "path": "res://addons/godot-next/resources/discrete_gradient_texture.gd"
+}, {
+"base": "Camera",
+"class": "DollyCamera3D",
+"language": "GDScript",
+"path": "res://systems/cutscene/DollyCamera3D.gd"
+}, {
+"base": "Path",
+"class": "DollyTrack3D",
+"language": "GDScript",
+"path": "res://systems/cutscene/DollyTrack3D.gd"
 }, {
 "base": "Node",
 "class": "DoorContainer",
@@ -401,6 +416,7 @@ _global_script_class_icons={
 "Construct": "",
 "Controller": "",
 "CreateConstruct": "",
+"Cutscene3D": "",
 "Cycle": "res://addons/godot-next/icons/icon_cycle.svg",
 "DataStore": "",
 "DebugCamera3D": "",
@@ -408,6 +424,8 @@ _global_script_class_icons={
 "DecoyConstruct": "",
 "DecoyConstructContainer": "",
 "DiscreteGradientTexture": "",
+"DollyCamera3D": "",
+"DollyTrack3D": "",
 "DoorContainer": "",
 "EditorTools": "",
 "EnemyContainer": "",
