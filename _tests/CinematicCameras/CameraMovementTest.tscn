@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://meshes/SmallHouse/SmallHouse.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://_tests/CinematicCameras/CameraMovementTest.gd" type="Script" id=2]
+[ext_resource path="res://_debug/DebugLabel.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -1.464, 0.606293, -0.505388, -0.482565, 0, -0.045648, 0.482565, 0, 0.045648, -0.374966, 1.11493, -1.55529, -0.241282, 0, -0.319536, 0.241282, 0, 0.319536, 1.47052, 1.59448, -1.3727, -0.0195637, 0, -0.365184, 0.0195637, 0, 0.365184, 1.71832, 1.84756, -0.0619509, 0.41548, -1.78814e-06, -0.253881, -0.41548, 1.78814e-06, 0.253881, 1.27488, 0.909622, 1.22924, 0.756453, 0, 0.639072, -0.756453, 0, -0.639072, -1.05969, 0.733459, 1.37922 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="CameraMovementTest" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="CameraPath" type="Path" parent="."]
+curve = SubResource( 1 )
+
+[node name="PathFollow" type="PathFollow" parent="CameraPath"]
+
+[node name="Camera" type="Camera" parent="CameraPath/PathFollow"]
+transform = Transform( -0.563742, 0, -0.825951, 0, 1, 0, 0.825951, 0, -0.563742, 0, 0, 0 )
+current = true
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 1, 1, 1 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 0, 1074528257, 1, 0, 786433, 65534, 0, 786433, 65535, 0, 1074528257, 0, 1, 786433, 1, 1, 1074528257, 65534, 1, 786433, 65535, 1, 786433, 0, 65534, 786433, 1, 65534, 786433, 65534, 65534, 537657345, 65535, 65534, 786433, 0, 65535, 537657345, 1, 65535, 786433, 65534, 65535, 537657345, 65535, 65535, 786433 )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 25.0
+margin_bottom = 48.0
+custom_constants/separation = 5
+
+[node name="DebugLabel" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_right = 10.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="DebugLabel2" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 19.0
+margin_right = 10.0
+margin_bottom = 33.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+listen_name = "debug_label2"
