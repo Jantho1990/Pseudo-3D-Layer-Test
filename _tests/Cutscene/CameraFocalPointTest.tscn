@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://meshes/SmallHouse/SmallHouse.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://systems/cutscene/DollyTrack3D.gd" type="Script" id=2]
 [ext_resource path="res://systems/cutscene/DollyCamera3D.gd" type="Script" id=3]
-[ext_resource path="res://_tests/Cutscene/DollyTest.gd" type="Script" id=4]
+[ext_resource path="res://_tests/Cutscene/CameraFocalPointTest.gd" type="Script" id=4]
 [ext_resource path="res://_debug/DebugLabel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://systems/cutscene/CameraFocalPoint3D.gd" type="Script" id=6]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
@@ -12,7 +13,7 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0 )
 }
 
-[node name="DollyTest" type="Spatial"]
+[node name="CameraFocalPointTest" type="Spatial"]
 script = ExtResource( 4 )
 
 [node name="GridMap" type="GridMap" parent="."]
@@ -20,7 +21,7 @@ mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 786433, 1, 0, 1074528257, 2, 0, 786433, 65533, 0, 537657345, 65534, 0, 786433, 65535, 0, 786433, 0, 1, 786433, 1, 1, 786433, 2, 1, 786433, 65533, 1, 786433, 65534, 1, 786433, 65535, 1, 786433, 0, 2, 786433, 1, 2, 1074528257, 2, 2, 786433, 65533, 2, 537657345, 65534, 2, 786433, 65535, 2, 786433, 0, 65533, 537657345, 1, 65533, 786433, 2, 65533, 786433, 65533, 65533, 786433, 65534, 65533, 786433, 65535, 65533, 786433, 0, 65534, 786433, 1, 65534, 786433, 2, 65534, 786433, 65533, 65534, 786433, 65534, 65534, 1074528257, 65535, 65534, 786433, 0, 65535, 786433, 1, 65535, 786433, 2, 65535, 786433, 65533, 65535, 786433, 65534, 65535, 786433, 65535, 65535, 786433 )
+"cells": PoolIntArray( 0, 0, 1074528257, 1, 0, 537657345, 2, 0, 537657345, 65533, 0, 537657345, 65534, 0, 537657345, 65535, 0, 537657345, 0, 1, 1074528257, 1, 1, 786433, 2, 1, 786433, 65533, 1, 537657345, 65534, 1, 786433, 65535, 1, 537657345, 0, 2, 537657345, 1, 2, 786433, 2, 2, 786433, 65533, 2, 786433, 65534, 2, 786433, 65535, 2, 786433, 0, 65533, 786433, 1, 65533, 1074528257, 2, 65533, 537657345, 65533, 65533, 786433, 65534, 65533, 786433, 65535, 65533, 1074528257, 0, 65534, 786433, 1, 65534, 1074528257, 2, 65534, 786433, 65533, 65534, 786433, 65534, 65534, 1074528257, 65535, 65534, 786433, 0, 65535, 786433, 1, 65535, 1074528257, 2, 65535, 786433, 65533, 65535, 786433, 65534, 65535, 1074528257, 65535, 65535, 1074528257 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -29,12 +30,13 @@ __meta__ = {
 [node name="DollyTrack3D" type="Path" parent="."]
 curve = SubResource( 1 )
 script = ExtResource( 2 )
-dolly_speed = 0.5
+dolly_speed = 2.5
 
 [node name="DollyCamera3D" type="Camera" parent="DollyTrack3D"]
-transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -2.56595 )
+transform = Transform( -0.999095, 0, -0.0425381, 0, 1, 0, 0.0425381, 0, -0.999095, 0, 0, -2.65069 )
 current = true
 script = ExtResource( 3 )
+focal_point = NodePath("../../CameraFocalPoint3D")
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -72,3 +74,7 @@ margin_right = 610.0
 margin_bottom = 33.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 listen_name = "debug_label2"
+
+[node name="CameraFocalPoint3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98963, 0.278495, -3.00825 )
+script = ExtResource( 6 )

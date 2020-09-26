@@ -19,7 +19,7 @@ func _ready():
 
 
 func _physics_process(delta):
-  pass
+  $DollyTrack3D.get_camera().focus_on_focal_point()
 
 
 func _on_Dolly_movement(data):

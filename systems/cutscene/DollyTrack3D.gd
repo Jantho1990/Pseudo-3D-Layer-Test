@@ -28,6 +28,7 @@ func _ready():
   for child in get_children():
     if child is DollyCamera3D:
       remove_child(child)
+      child.path_follow_node = path_follow_node
       path_follow_node.add_child(child)
 
   # Set the dolly up for use.
@@ -47,8 +48,8 @@ func advance_dolly_along_track(speed):
     DOLLY_REVERSE: dolly_sign = -1
   
   path_follow_node.offset += speed * dolly_sign
-  GlobalSignal.dispatch('debug_label1', { 'text': path_follow_node.offset })
-  GlobalSignal.dispatch('debug_label2', { 'text': speed * dolly_sign })
+  # GlobalSignal.dispatch('debug_label1', { 'text': path_follow_node.offset })
+  # GlobalSignal.dispatch('debug_label2', { 'text': speed * dolly_sign })
   
   if dolly_reached_end_of_track() and not dolly_repeat:
     dolly_active = false
@@ -64,6 +65,20 @@ func dolly_reached_end_of_track():
   match dolly_direction:
     DOLLY_FORWARD: return path_follow_node.offset == curve.get_baked_length()
     DOLLY_REVERSE: return path_follow_node.offset == 0
+
+
+# Gets a camera associated with the track; returns the first camera if no index is specified.
+func get_camera(index : int = 0):
+  return get_cameras()[index]
+
+
+# Get all cameras associated with this track.
+func get_cameras():
+  var ret = []
+  for child in path_follow_node.get_children():
+    if child is DollyCamera3D:
+      ret.push_back(child)
+  return ret
 
 
 func get_track_length():
