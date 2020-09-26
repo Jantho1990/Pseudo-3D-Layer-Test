@@ -1,6 +1,8 @@
 extends Path
 
-class_name DollyTrack3D # This is used to provide a path for DollyCameras to follow. You can create a path similarly to how a normal Path node works.
+# This is used to provide a path for DollyCameras to follow.
+# You can create a path similarly to how a normal Path node works.
+class_name DollyTrack3D
 
 signal dolly_movement
 

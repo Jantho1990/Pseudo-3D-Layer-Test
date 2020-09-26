@@ -1,5 +1,9 @@
 extends Camera
 
+# A camera specifically for use with DollyTrack3D. This will be made a child
+# of the DollyTrack's PathFollow during the ready process. Its transform will
+# be matched with the PathFollow, but the Pathfollow will assume the camera's
+# rotation.
 class_name DollyCamera3D
 
 export(NodePath) var focal_point # If set, this is what the camera will look at as it is moved along the dolly.
